@@ -22,5 +22,5 @@ public class Request {
     @JoinColumn(name = "user_id")
     private User user;
 
-    private String url,params;
+    private String url;
 }

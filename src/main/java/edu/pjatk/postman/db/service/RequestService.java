@@ -23,6 +23,10 @@ public class RequestService {
         return repository.findAll();
     }
 
+    public Optional<Request> getRequestsByUserId(Long id){
+        return repository.requestList(id);
+    }
+
     public List<Long> findAllIds(){
         return repository.findId();
     }
