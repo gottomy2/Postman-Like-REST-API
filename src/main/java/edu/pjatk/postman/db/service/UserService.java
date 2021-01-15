@@ -4,9 +4,12 @@ import edu.pjatk.postman.db.repository.UserRepository;
 import edu.pjatk.postman.db.repository.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
-import java.util.Optional;
+
+/**
+ * @author Igor Motowidło (gottomy2)
+ * Simple Service for UserRepository class
+ */
 
 @Service
 public class UserService {
@@ -17,31 +20,45 @@ public class UserService {
         this.repository = repository;
     }
 
+    /**
+     * Finds all users from the database
+     * @return List<User>
+     */
     public List<User> findAllUsers(){
         return repository.findAll();
     }
 
-    public Long findUserByName(String name){
-        return repository.findIdByName(name);
-    }
-
-    public List<Long> findAllIds(){
-        return repository.findId();
-    }
-
-    public Optional<User> findUser(Long id){
+    /**
+     * Finds user with specified id in the database
+     * @param id Id of the user we're looking for
+     * @return User Object
+     */
+    public User findUserById(Long id){
         return repository.findUserById(id);
     }
 
+    /**
+     * Creates new User in the database.
+     * @param user User Object
+     */
     public void createUser(User user){
         repository.save(user);
     }
 
+    /**
+     * Updates existing User, or creating new User in the database.
+     * @param user User Object
+     */
     public void updateUser(User user){
         repository.save(user);
     }
 
+    /**
+     * Removes User entity from the database.
+     * @param user User Object
+     */
     public void deleteUser(User user){
+        repository.delete(user);
         repository.delete(user);
     }
 }

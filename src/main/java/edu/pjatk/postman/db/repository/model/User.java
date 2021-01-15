@@ -1,9 +1,16 @@
 package edu.pjatk.postman.db.repository.model;
 
 import lombok.*;
-
 import javax.persistence.*;
-import java.util.List;
+
+/**
+ * @author Igor Motowidło (gottomy2)
+ * Simple User Entity Class
+ * id - auto generated value for the database,
+ * username - User username,
+ * password - User password,
+ * email - User email.
+ */
 
 @Getter
 @Setter
@@ -19,8 +26,5 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ToString.Exclude
-    @EqualsAndHashCode.Exclude
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    private List<Request> name;
+    private String username,password,email;
 }
