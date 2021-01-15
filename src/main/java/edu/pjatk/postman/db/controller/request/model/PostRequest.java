@@ -1,4 +1,4 @@
-package edu.pjatk.postman.db.controller.Request.model;
+package edu.pjatk.postman.db.controller.request.model;
 
 import lombok.*;
 
@@ -9,8 +9,7 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetRequestResponse {
-    private Long id;
+public class PostRequest {
     private Long userId;
     private String url;
     private String params;
