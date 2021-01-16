@@ -19,8 +19,8 @@ public class RequestService {
         this.repository = repository;
     }
 
-    public List<Request> findAllRequests(){
-        return repository.findAll();
+    public List<Long> findAllRequests(){
+        return repository.findAllIds();
     }
 
     public Optional<Request> getRequestsByUserId(Long id){
@@ -31,7 +31,7 @@ public class RequestService {
         return repository.findId();
     }
 
-    public Optional<Request> findRequest(Long id){
+    public Optional<Request> findRequestById(Long id){
         return repository.findById(id);
     }
 

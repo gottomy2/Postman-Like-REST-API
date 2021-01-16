@@ -1,4 +1,4 @@
-package edu.pjatk.postman.db.controller.request.model;
+package edu.pjatk.postman.db.controller.response.model;
 
 import edu.pjatk.postman.db.repository.model.User;
 import lombok.*;
@@ -12,6 +12,6 @@ import lombok.*;
 @NoArgsConstructor
 public class GetRequestResponse {
     private Long id;
-    private Long userId;
+    private User user;
     private String url;
 }

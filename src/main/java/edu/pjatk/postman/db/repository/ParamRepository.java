@@ -28,6 +28,6 @@ public interface ParamRepository extends JpaRepository<Param,Long> {
      * @param id Id of the request to which Param belongs
      * @return Optional<Param> list of the Params with specified request_id
      */
-    @Query("select p from Param p where p.request=?1")
+    @Query("select p from Param p where p.request.id=?1")
     Optional<Param> findParamsByRequestId(Long id);
 }

@@ -15,7 +15,7 @@ import java.util.Optional;
 
 /**
  * @author Igor Motowidło (gottomy2)
- * TODO: correct UserController
+ * Complete API for user entities
  */
 
 
@@ -67,7 +67,7 @@ public class UserController {
     /**
      * Updates existing user on the database
      * @param request PutUserRequest object containing basic user parameters
-     * @return ResponseEntity.noContent() on success | ResponseEnityt.notFound() on failure
+     * @return ResponseEntity.ok() on success | ResponseEnityt.notFound() on failure
      */
     @PutMapping("/updateUser")
     public ResponseEntity<Void> putUser(@RequestBody PutUserRequest request){
@@ -78,7 +78,7 @@ public class UserController {
             user.get().setEmail(request.getEmail());
             user.get().setPassword(request.getPassword());
             userService.updateUser(user.get());
-            return ResponseEntity.noContent().build();
+            return ResponseEntity.ok().build();
         }
         else{
             return ResponseEntity.notFound().build();

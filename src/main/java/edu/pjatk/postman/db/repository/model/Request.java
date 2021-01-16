@@ -4,6 +4,11 @@ import lombok.*;
 
 import javax.persistence.*;
 
+/**
+ * @author Igor Motowidlo (gottomy2)
+ * Simple Entity class for Requests
+ */
+
 @Getter
 @Setter
 @Builder
@@ -16,11 +21,14 @@ import javax.persistence.*;
 public class Request {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Access(AccessType.PROPERTY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    public Request(Long id){
+        this.id = id;
+    }
+
+    private Long userId;
 
     private String url;
 }

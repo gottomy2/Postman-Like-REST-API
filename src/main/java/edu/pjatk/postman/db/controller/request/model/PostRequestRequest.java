@@ -9,8 +9,8 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class PutRequest {
+public class PostRequestRequest {
+    private Long id;
     private Long userId;
     private String url;
-    private String params;
 }

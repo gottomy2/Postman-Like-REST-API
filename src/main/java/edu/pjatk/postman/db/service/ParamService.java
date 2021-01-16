@@ -4,6 +4,8 @@ import edu.pjatk.postman.db.repository.ParamRepository;
 import edu.pjatk.postman.db.repository.model.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -34,7 +36,7 @@ public class ParamService {
      * @param id id of the Request to which Params belong
      * @return Optional<Param>
      */
-    public Optional<Param> findParamsByRequestId(Long id){
+    public Optional<Param> getParamsByRequestId(Long id){
         return repository.findParamsByRequestId(id);
     }
 
