@@ -1,8 +1,8 @@
 package edu.pjatk.postman.db.controller.user.model;
 
+import edu.pjatk.postman.db.repository.model.User;
 import lombok.*;
-
-import java.util.HashMap;
+import java.util.List;
 
 @Getter
 @Setter
@@ -12,5 +12,5 @@ import java.util.HashMap;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetUsersResponses {
-    private HashMap<Long,String> map=new HashMap<Long,String>();
+    private List<Long> idList;
 }

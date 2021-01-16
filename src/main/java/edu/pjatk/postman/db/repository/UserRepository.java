@@ -4,6 +4,7 @@ import edu.pjatk.postman.db.repository.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Igor Motowidło (gottomy2)
@@ -16,8 +17,7 @@ public interface UserRepository extends JpaRepository<User,Long> {
      * @return List<Long> - List of all UserIds
      */
     @Query("select u.id from User u")
-    List<Long> findId();
-
+    List<Long> findAllIds();
 
     /**
      * @param username name of the User object we are looking for.
@@ -32,5 +32,5 @@ public interface UserRepository extends JpaRepository<User,Long> {
      * @return User user - with the specified id
      */
     @Query("select u from User u where u.id=?1")
-    User findUserById(Long id);
+    Optional<User> findUserById(Long id);
 }

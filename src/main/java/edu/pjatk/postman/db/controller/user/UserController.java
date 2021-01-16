@@ -1,13 +1,16 @@
 package edu.pjatk.postman.db.controller.user;
 
 import edu.pjatk.postman.db.controller.user.model.GetUserResponse;
+import edu.pjatk.postman.db.controller.user.model.GetUsersResponses;
+import edu.pjatk.postman.db.controller.user.model.PostUserRequest;
+import edu.pjatk.postman.db.controller.user.model.PutUserRequest;
 import edu.pjatk.postman.db.repository.model.User;
 import edu.pjatk.postman.db.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
 import java.util.Optional;
 
 /**
@@ -15,19 +18,87 @@ import java.util.Optional;
  * TODO: correct UserController
  */
 
+
 @RestController
+@RequestMapping("/user")
 public class UserController {
     private UserService userService;
+
 
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
     }
-//    @GetMapping("{userId}")
-//    public ResponseEntity<GetUserResponse> getBranch(@PathVariable("userId") Long userId) {
-//        Optional<User> branch = userService.findUser(userId);
-//        return branch.map(value -> ResponseEntity.ok(new GetUserResponse(value.getId(), value.getName())))
-//                .orElseGet(() -> ResponseEntity.notFound().build());
-//    }
 
+    /**
+     * Finds user in the database by id
+     * if user exists returns GetUserResponse object
+     * if user does not exist returns ResponseEntity.notFound()
+     * @param id id of the user to find in database
+     */
+    @GetMapping("/getUserById/{userId}")
+    public ResponseEntity<GetUserResponse> getUser(@PathVariable("userId") Long id) {
+        Optional<User> user = userService.findUserById(id);
+        return user.map(value -> ResponseEntity.ok(new GetUserResponse(value.getId(),value.getEmail(),value.getPassword(),value.getUsername())))
+                .orElseGet(() -> ResponseEntity.notFound().build());
+    }
+
+    /**
+     * Finds all ids of users in the database
+     * @return all Ids of users from the database
+     */
+    @GetMapping("/getAllIds")
+    public GetUsersResponses getAllUsersIds(){
+        return new GetUsersResponses(userService.findAllUsers());
+    }
+
+    /**
+     * Creates new User object on the database (adds new user to the database)
+     * @param request PostUserRequest Object -
+     * @return ResponseEntity object found via getUserById API mapping
+     */
+    @PostMapping("/createUser")
+    public ResponseEntity<Void> postUser(@RequestBody PostUserRequest request){
+        User user = new User(request.getId(),request.getUsername(),request.getPassword(),request.getEmail());
+        userService.createUser(user);
+        return ResponseEntity.created(URI.create("http://localhost:8080/user/getUserById/"+user.getId())).build();
+    }
+
+    /**
+     * Updates existing user on the database
+     * @param request PutUserRequest object containing basic user parameters
+     * @return ResponseEntity.noContent() on success | ResponseEnityt.notFound() on failure
+     */
+    @PutMapping("/updateUser")
+    public ResponseEntity<Void> putUser(@RequestBody PutUserRequest request){
+        Optional<User> user = userService.findUserById(request.getId());
+        if(user.isPresent()){
+            user.get().setId(request.getId());
+            user.get().setUsername(request.getUsername());
+            user.get().setEmail(request.getEmail());
+            user.get().setPassword(request.getPassword());
+            userService.updateUser(user.get());
+            return ResponseEntity.noContent().build();
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    /**
+     * Removes specific user from the database
+     * @param id of the user to remove
+     * @return ResponseEnitity.accepted() on success | ResponseEntity.notFound() on failure
+     */
+    @DeleteMapping("/deleteUser/{userId}")
+    public ResponseEntity<Void> deleteUser(@PathVariable("userId") Long id){
+        Optional<User> user = userService.findUserById(id);
+        if(user.isPresent()){
+            userService.deleteUser(user.get());
+            return ResponseEntity.accepted().build();
+        }
+        else{
+            return ResponseEntity.notFound().build();
+        }
+    }
 }
