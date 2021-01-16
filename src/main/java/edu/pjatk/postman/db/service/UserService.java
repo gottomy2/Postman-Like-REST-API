@@ -5,6 +5,7 @@ import edu.pjatk.postman.db.repository.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Igor Motowidło (gottomy2)
@@ -24,8 +25,8 @@ public class UserService {
      * Finds all users from the database
      * @return List<User>
      */
-    public List<User> findAllUsers(){
-        return repository.findAll();
+    public List<Long> findAllUsers(){
+        return repository.findAllIds();
     }
 
     /**
@@ -33,7 +34,7 @@ public class UserService {
      * @param id Id of the user we're looking for
      * @return User Object
      */
-    public User findUserById(Long id){
+    public Optional<User> findUserById(Long id){
         return repository.findUserById(id);
     }
 
@@ -58,7 +59,6 @@ public class UserService {
      * @param user User Object
      */
     public void deleteUser(User user){
-        repository.delete(user);
         repository.delete(user);
     }
 }

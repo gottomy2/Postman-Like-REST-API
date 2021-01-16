@@ -1,0 +1,27 @@
+### Creates new user with shown parameters:
+POST http://localhost:9090/user/createUser/
+Content-Type: application/json
+
+{
+  "id": 3,
+  "email": "test2@email.com",
+  "username": "test2user",
+  "password" : "test2password"
+}
+
+###
+PUT http://localhost:9090/user/updateUser/
+Content-Type: application/json
+
+{
+  "id": 7,
+  "email": "changed@test.com",
+  "username": "changeduser",
+  "password": "changedpassword"
+}
+
+###
+GET https://localhost:9090/user/getUserById/7
+
+###
+DELETE https://localhost:9090/user/deleteUser/7
