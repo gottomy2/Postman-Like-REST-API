@@ -1,5 +1,6 @@
 package edu.pjatk.postman.db.controller.request.model;
 
+import edu.pjatk.postman.db.repository.model.Request;
 import lombok.*;
 
 import java.util.ArrayList;
@@ -13,6 +14,5 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetRequestsResponses {
-    private List<Long> idList = new ArrayList<>();
-
+    private List<Long> requestList;
 }
