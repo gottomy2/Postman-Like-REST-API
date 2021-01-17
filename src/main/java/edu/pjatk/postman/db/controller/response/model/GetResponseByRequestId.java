@@ -1,7 +1,8 @@
 package edu.pjatk.postman.db.controller.response.model;
 
-import edu.pjatk.postman.db.repository.model.User;
+import edu.pjatk.postman.db.repository.model.Response;
 import lombok.*;
+import java.util.Optional;
 
 @Getter
 @Setter
@@ -10,8 +11,6 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class GetRequestResponse {
-    private Long id;
-    private User user;
-    private String url;
+public class GetResponseByRequestId {
+    private Optional<Response> responseList;
 }

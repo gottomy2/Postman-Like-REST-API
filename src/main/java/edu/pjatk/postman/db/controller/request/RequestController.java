@@ -2,8 +2,7 @@ package edu.pjatk.postman.db.controller.request;
 
 import edu.pjatk.postman.db.controller.request.model.GetRequestResponse;
 import edu.pjatk.postman.db.controller.request.model.GetRequestsResponses;
-import edu.pjatk.postman.db.controller.request.model.PostRequestRequest;
-import edu.pjatk.postman.db.controller.request.model.PutRequestRequest;
+import edu.pjatk.postman.db.controller.request.model.PostRequestResponse;
 import edu.pjatk.postman.db.repository.model.Param;
 import edu.pjatk.postman.db.repository.model.Request;
 import edu.pjatk.postman.db.service.ParamService;
@@ -58,7 +57,7 @@ public class RequestController {
      * @return ResponseEntity.notFound on failure | ResponseEntity.created on success with API call of getRequest() method.
      */
     @PostMapping("/createRequest")
-    public ResponseEntity<Void> createRequest(@RequestBody PostRequestRequest postRequestRequest){
+    public ResponseEntity<Void> createRequest(@RequestBody PostRequestResponse postRequestRequest){
         Optional<Request> check = requestService.findRequestById(postRequestRequest.getId());
         if(check.isEmpty()){
             return ResponseEntity.notFound().build();
@@ -72,19 +71,19 @@ public class RequestController {
 
     /**
      * Updates existing request in the database
-     * @param putRequestRequest request entity declared in body of PUT REQUEST
+     * @param postRequestRequest request entity declared in body of Put REQUEST
      * @return ResponseEntity.notFound() on non existing entity | ResponseEntity.ok() on success
      */
     @PutMapping("/updateRequest")
-    public ResponseEntity<Void> updateRequest(@RequestBody PutRequestRequest putRequestRequest){
-        Optional<Request> request = requestService.findRequestById(putRequestRequest.getId());
+    public ResponseEntity<Void> updateRequest(@RequestBody PostRequestResponse postRequestRequest){
+        Optional<Request> request = requestService.findRequestById(postRequestRequest.getId());
         if(request.isEmpty()){
             return ResponseEntity.notFound().build();
         }
         else{
-            request.get().setId(putRequestRequest.getId());
-            request.get().setUrl(putRequestRequest.getUrl());
-            request.get().setUserId(putRequestRequest.getUserId());
+            request.get().setId(postRequestRequest.getId());
+            request.get().setUrl(postRequestRequest.getUrl());
+            request.get().setUserId(postRequestRequest.getUserId());
             return ResponseEntity.ok().build();
         }
     }

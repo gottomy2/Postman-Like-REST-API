@@ -19,8 +19,8 @@ public interface ResponseRepository extends JpaRepository<Response,Long> {
      * @param id request_id to search by
      * @return Optional<Response> List of responses with request_id=id
      */
-    @Query("select r from Response r where r.request=?1")
-    Optional<Response> findAllResponsesByRequestId(Long id);
+    @Query("select r from Response r where r.requestId=?1")
+    Optional<Response> findResponseByRequestId(Long id);
 
     /**
      * Finds Response by id
@@ -28,5 +28,8 @@ public interface ResponseRepository extends JpaRepository<Response,Long> {
      * @return Response Object
      */
     @Query("select r from Response r where r.id=?1")
-    Response getResponseById(Long id);
+    Optional<Response> getResponseById(Long id);
+
+    @Query("select r.id from Response r")
+    List<Long> getAllIds();
 }

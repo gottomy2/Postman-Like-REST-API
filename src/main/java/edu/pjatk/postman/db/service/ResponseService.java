@@ -4,6 +4,8 @@ import edu.pjatk.postman.db.repository.ResponseRepository;
 import edu.pjatk.postman.db.repository.model.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -25,8 +27,12 @@ public class ResponseService {
      * @param id id of the object we are looking for
      * @return Response Object
      */
-    public Response getResponseById(Long id){
+    public Optional<Response> getResponseById(Long id){
         return repository.getResponseById(id);
+    }
+
+    public List<Long> getAllIds(){
+        return repository.getAllIds();
     }
 
     /**
@@ -34,8 +40,8 @@ public class ResponseService {
      * @param requestId Id of the request by which we want to search Response table
      * @return Optional<Response> List of Response Objects
      */
-    public Optional<Response> getResponsesByRequestId(Long requestId){
-        return repository.findAllResponsesByRequestId(requestId);
+    public Optional<Response> getResponseByRequestId(Long requestId){
+        return repository.findResponseByRequestId(requestId);
     }
 
     /**

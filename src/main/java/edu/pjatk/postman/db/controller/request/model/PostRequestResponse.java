@@ -9,7 +9,7 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostRequestRequest {
+public class PostRequestResponse {
     private Long id;
     private Long userId;
     private String url;
