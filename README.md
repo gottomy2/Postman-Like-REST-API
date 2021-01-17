@@ -26,6 +26,7 @@ There are  4 main tables in the database:
 | email | character varying(255)  |
 | password | character varying(255) |
 | username | character varying(255) |
+| ------------- | ------------- |
 Each user can have multiple request bound to his id 
 - requests:
 
