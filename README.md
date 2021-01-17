@@ -6,14 +6,8 @@ Was to achieve cloud located app similar to [Postman](https://www.postman.com/)
 ### Goal for this project
 Was to create testing service for each user to create test scenarios and perform multiple requests on API service created by [ Mr Valentyn Kuts](). Notice, that this project consists only of backend in form of Java Spring Application to which frontend is prepared by [Mr Maciej Milewski]()  
 
-**Table of Contents**
-
-[TOCM]
-
-[TOC]
-
 -------------  
-### Usefull Informations
+### Useful Informations
 #### DataBase
 Project is based on the [postgres](https://www.postgresql.org/) database on which all API calls are executed.
 Database is an existing localhost database which is blank empty before start of the application.
@@ -44,7 +38,6 @@ Each request can have multiple parameters bound to his id
 | id | bigint | id of the parameter |
 | name | character varying(255) | name of the parameter example: "username" |
 | value | character varying(255) | value of the parameter example: "admin" |
-
 | request_id | bigint | id of the request to which param belongs
 
 - responses:
