@@ -30,6 +30,11 @@ public class ResponseController {
         this.responseService = responseService;
     }
 
+    /**
+     * Finds response in the database by id
+     * @param id id of the response to find in database
+     * @return if response exists returns GetResponseResponse object | if response does not exist returns ResponseEntity.notFound()
+     */
     @GetMapping("/getResponseById/{responseId}")
     public ResponseEntity<GetResponseResponse> getResponseById(@PathVariable("responseId") Long id){
         Optional<Response> response = responseService.getResponseById(id);
@@ -37,44 +42,68 @@ public class ResponseController {
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
+    /**
+     * Finds all ids of responses in the database
+     * @return all Ids of responses from the database
+     */
     @GetMapping("/getResponsesIds")
     public GetResponsesResponse getResponsedIds(){
         return new GetResponsesResponse(responseService.getAllIds());
     }
 
+    /**
+     * Finds all responses with Response.requestId=id
+     * @param id id to search responses table for
+     * @return GetResponseByRequestId Object
+     */
     @GetMapping("/getResponseByRequestId/{requestId}")
     public GetResponseByRequestId getResponseByRequestId(@PathVariable("requestId") Long id){
         return new GetResponseByRequestId(responseService.getResponseByRequestId(id));
     }
 
+    /**
+     * Creates new Response object on the database (adds new response to the database)
+     * @param request PostResponseResponse Object
+     * @return ResponseEntity.notFound().build() if Response already exists or request with such requestId does not exist | ResponseEntity.ok() on success
+     */
     @PostMapping("/createResponse")
-    public ResponseEntity<Void> createResponse(@RequestBody PostResponseResponse postResponseResponse){
-        Optional<Response> check = responseService.getResponseById(postResponseResponse.getId());
-        Optional<Request> check2 = requestService.findRequestById(postResponseResponse.getId());
+    public ResponseEntity<Void> createResponse(@RequestBody PostResponseResponse request){
+        Optional<Response> check = responseService.getResponseById(request.getId());
+        Optional<Request> check2 = requestService.findRequestById(request.getId());
         if(check.isPresent() || check2.isEmpty()){
             return ResponseEntity.notFound().build();
         }
         else{
-            Response response = new Response(postResponseResponse.getId(),postResponseResponse.getRequestId(),postResponseResponse.getResponse());
+            Response response = new Response(request.getId(),request.getRequestId(),request.getResponse());
             responseService.createResponse(response);
             return ResponseEntity.ok().build();
         }
     }
 
+    /**
+     * Updates Existing Response object on the database (adds new response to the database)
+     * @param request PostResponseResponse Object
+     * @return ResponseEntity.notFound() if response does not exist or if request with provided requestId does not exist | ResponseEntity.ok() on success
+     */
     @PutMapping("/updateResponse")
-    public ResponseEntity<Void> updateResponse(@RequestBody PostResponseResponse postResponseResponse){
-        Optional<Response> check = responseService.getResponseById(postResponseResponse.getId());
-        Optional<Request> check2 = requestService.findRequestById(postResponseResponse.getId());
+    public ResponseEntity<Void> updateResponse(@RequestBody PostResponseResponse request){
+        Optional<Response> check = responseService.getResponseById(request.getId());
+        Optional<Request> check2 = requestService.findRequestById(request.getId());
         if(check.isEmpty() || check2.isEmpty()){
             return ResponseEntity.notFound().build();
         }
         else{
-            Response response = new Response(postResponseResponse.getId(),postResponseResponse.getRequestId(),postResponseResponse.getResponse());
+            Response response = new Response(request.getId(),request.getRequestId(),request.getResponse());
             responseService.updateResponse(response);
             return ResponseEntity.ok().build();
         }
     }
 
+    /**
+     * Removes Response entity with specified id from the database
+     * @param id
+     * @return ResponseEntity.notFound() if entity with specified id does not exist | ResponseEntity.ok() on success
+     */
     @DeleteMapping("/deleteResponse/responseId")
     public ResponseEntity<Void> deleteResponse(@PathVariable("responseId") Long id){
         Optional<Response> response = responseService.getResponseById(id);

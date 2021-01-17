@@ -9,15 +9,23 @@ import java.util.List;
 import java.util.Optional;
 
 
-//Create methods based on queries:
+/**
+ * @author Igor Motowidło (gottomy2)
+ * Simple JpaRepository for Request class
+ */
 @Repository
 public interface RequestRepository extends JpaRepository<Request,Long> {
-    @Query("select r.id from Request r")
-    List<Long> findId();
 
+    /**
+     * @return List<Long> of all ids from request table
+     */
     @Query("select r.id from Request r")
     List<Long> findAllIds();
 
+    /**
+     * @param id - id of user to Requests table search for
+     * @return Optional<Request> all requests where Request.userId=id;
+     */
     @Query("select r from Request r where r.userId=?1")
     Optional<Request> requestList(Long id);
 }

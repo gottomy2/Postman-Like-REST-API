@@ -15,7 +15,6 @@ import java.util.Optional;
 public interface ResponseRepository extends JpaRepository<Response,Long> {
 
     /**
-     * Finds all responses by request_id
      * @param id request_id to search by
      * @return Optional<Response> List of responses with request_id=id
      */
@@ -23,13 +22,15 @@ public interface ResponseRepository extends JpaRepository<Response,Long> {
     Optional<Response> findResponseByRequestId(Long id);
 
     /**
-     * Finds Response by id
      * @param id id parameter of Response object
-     * @return Response Object
+     * @return Optional<Response> with Response.id=id
      */
     @Query("select r from Response r where r.id=?1")
     Optional<Response> getResponseById(Long id);
 
+    /**
+     * @return List<Long> of all ids in responses table
+     */
     @Query("select r.id from Response r")
     List<Long> getAllIds();
 }

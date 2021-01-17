@@ -11,7 +11,6 @@ import java.util.Optional;
  * @author Igor Motowidło (gottomy2)
  * Simple Service for UserRepository class
  */
-
 @Service
 public class UserService {
     private UserRepository repository;

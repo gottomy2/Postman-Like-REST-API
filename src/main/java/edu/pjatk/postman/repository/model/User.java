@@ -6,10 +6,6 @@ import javax.persistence.*;
 /**
  * @author Igor Motowidło (gottomy2)
  * Simple User Entity Class
- * id - auto generated value for the database,
- * username - User username,
- * password - User password,
- * email - User email.
  */
 
 @Getter

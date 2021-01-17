@@ -60,18 +60,18 @@ public class ParamController {
 
     /**
      * Creates new Param Entity in the database.
-     * @param postParamRequest new Param parameters with values declared in body.
+     * @param request new Param parameters with values declared in body.
      * @return ResponseEntity.notFound() if param with such id already exists or there is no existing request with specified requestId | ResponseEntity.ok() on success.
      */
     @PostMapping("/createParam")
-    public ResponseEntity<Void> createParam(@RequestBody PostParamRequest postParamRequest){
-        Optional<Param> check = paramService.getParamById(postParamRequest.getId());
-        Optional<Request> check2 = requestService.findRequestById(postParamRequest.getRequestId());
+    public ResponseEntity<Void> createParam(@RequestBody PostParamRequest request){
+        Optional<Param> check = paramService.getParamById(request.getId());
+        Optional<Request> check2 = requestService.findRequestById(request.getRequestId());
         if(check.isPresent() || check2.isEmpty()){
             return ResponseEntity.notFound().build();
         }
         else{
-            Param param = new Param(postParamRequest.getId(),postParamRequest.getRequestId(),postParamRequest.getName(),postParamRequest.getValue());
+            Param param = new Param(request.getId(),request.getRequestId(),request.getName(),request.getValue());
             paramService.createParam(param);
             return ResponseEntity.ok().build();
         }
@@ -79,18 +79,18 @@ public class ParamController {
 
     /**
      * Updates Existing param in the database.
-     * @param putParamRequest Param entity declared in body of PUT REQUEST
+     * @param request Param entity declared in body of PUT REQUEST
      * @return ResponseEntity.notFound() if entity does not exist or there is no existing request with specified requestId | ResponseEntity.ok() on success
      */
     @PutMapping("/updateParam")
-    public ResponseEntity<Void> updateParam(@RequestBody PutParamRequest putParamRequest){
-        Optional<Param> check = paramService.getParamById(putParamRequest.getId());
-        Optional<Request> check2 = requestService.findRequestById(putParamRequest.getRequestId());
+    public ResponseEntity<Void> updateParam(@RequestBody PutParamRequest request){
+        Optional<Param> check = paramService.getParamById(request.getId());
+        Optional<Request> check2 = requestService.findRequestById(request.getRequestId());
         if(check.isEmpty() || check2.isEmpty()){
             return ResponseEntity.notFound().build();
         }
         else{
-            Param param = new Param(putParamRequest.getId(),putParamRequest.getRequestId(),putParamRequest.getName(),putParamRequest.getValue());
+            Param param = new Param(request.getId(),request.getRequestId(),request.getName(),request.getValue());
             paramService.updateParam(param);
             return ResponseEntity.ok().build();
         }

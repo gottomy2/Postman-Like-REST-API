@@ -9,10 +9,9 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * @author: Igor Motowidło (gottomy2)
+ * @author Igor Motowidło (gottomy2)
  * Simple Service for ParamRepository class
  */
-
 @Service
 public class ParamService {
     private ParamRepository repository;
@@ -40,6 +39,9 @@ public class ParamService {
         return repository.findParamsByRequestId(id);
     }
 
+    /**
+     * @return List<Long> of all Ids within params table
+     */
     public List<Long> getAllIds(){
         return repository.getAllIds();
     }

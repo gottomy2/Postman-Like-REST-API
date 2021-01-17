@@ -24,10 +24,6 @@ public class Request {
     @Access(AccessType.PROPERTY)
     private Long id;
 
-    public Request(Long id){
-        this.id = id;
-    }
-
     private Long userId;
 
     private String url;

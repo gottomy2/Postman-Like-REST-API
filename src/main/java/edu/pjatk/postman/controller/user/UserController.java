@@ -18,7 +18,6 @@ import java.util.Optional;
  * Complete API for user entities
  */
 
-
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -32,9 +31,8 @@ public class UserController {
 
     /**
      * Finds user in the database by id
-     * if user exists returns GetUserResponse object
-     * if user does not exist returns ResponseEntity.notFound()
      * @param id id of the user to find in database
+     * @return if user exists returns GetUserResponse object | if user does not exist returns ResponseEntity.notFound()
      */
     @GetMapping("/getUserById/{userId}")
     public ResponseEntity<GetUserResponse> getUser(@PathVariable("userId") Long id) {

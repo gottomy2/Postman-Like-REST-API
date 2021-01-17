@@ -9,10 +9,9 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * @author: Igor Motowidło (gottomy2)
+ * @author Igor Motowidło (gottomy2)
  * Simple Service for ResponseRepository class
  */
-
 @Service
 public class ResponseService {
     private ResponseRepository repository;

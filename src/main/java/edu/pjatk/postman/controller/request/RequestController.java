@@ -84,6 +84,7 @@ public class RequestController {
             request.get().setId(postRequestRequest.getId());
             request.get().setUrl(postRequestRequest.getUrl());
             request.get().setUserId(postRequestRequest.getUserId());
+            requestService.updateRequest(request.get());
             return ResponseEntity.ok().build();
         }
     }
