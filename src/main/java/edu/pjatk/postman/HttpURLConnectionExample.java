@@ -1,4 +1,4 @@
-package edu.pjatk.postman.logics;
+package edu.pjatk.postman;
 
 import java.io.BufferedReader;
 import java.io.IOException;
