@@ -23,7 +23,7 @@ public class RequestService {
     }
 
     /**
-     * @return List<Long> of all Ids within Request table
+     * @return List of all Long Ids within Request table
      */
     public List<Long> findAllRequests(){
         return repository.findAllIds();
@@ -31,7 +31,7 @@ public class RequestService {
 
     /**
      * @param id - id of user to search by request table by
-     * @return Optional<Request> all requests with request.userId=id
+     * @return Optional all Requests with request.userId=id
      */
     public Optional<Request> getRequestsByUserId(Long id){
         return repository.requestList(id);
@@ -39,7 +39,7 @@ public class RequestService {
 
     /**
      * @param id to search request table for.
-     * @return Optional<Request> single request record where request.id=id
+     * @return Optional single Request record where request.id=id
      */
     public Optional<Request> findRequestById(Long id){
         return repository.findById(id);

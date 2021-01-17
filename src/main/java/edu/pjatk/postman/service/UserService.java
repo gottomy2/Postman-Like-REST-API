@@ -22,7 +22,7 @@ public class UserService {
 
     /**
      * Finds all users from the database
-     * @return List<User>
+     * @return List of all users from the database
      */
     public List<Long> findAllUsers(){
         return repository.findAllIds();

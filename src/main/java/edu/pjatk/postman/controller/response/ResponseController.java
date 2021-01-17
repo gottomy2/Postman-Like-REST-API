@@ -101,7 +101,7 @@ public class ResponseController {
 
     /**
      * Removes Response entity with specified id from the database
-     * @param id
+     * @param id id of the Response entity to remove
      * @return ResponseEntity.notFound() if entity with specified id does not exist | ResponseEntity.ok() on success
      */
     @DeleteMapping("/deleteResponse/responseId")

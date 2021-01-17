@@ -16,20 +16,20 @@ public interface ResponseRepository extends JpaRepository<Response,Long> {
 
     /**
      * @param id request_id to search by
-     * @return Optional<Response> List of responses with request_id=id
+     * @return Optional List of Responses with request_id=id
      */
     @Query("select r from Response r where r.requestId=?1")
     Optional<Response> findResponseByRequestId(Long id);
 
     /**
      * @param id id parameter of Response object
-     * @return Optional<Response> with Response.id=id
+     * @return Optional Response with Response.id=id
      */
     @Query("select r from Response r where r.id=?1")
     Optional<Response> getResponseById(Long id);
 
     /**
-     * @return List<Long> of all ids in responses table
+     * @return List of all Long ids in responses table
      */
     @Query("select r.id from Response r")
     List<Long> getAllIds();

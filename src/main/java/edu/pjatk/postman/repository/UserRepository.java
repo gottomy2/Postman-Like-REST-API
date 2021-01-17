@@ -14,7 +14,7 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User,Long> {
 
     /**
-     * @return List<Long> - List of all UserIds
+     * @return List - List of all Long UserIds
      */
     @Query("select u.id from User u")
     List<Long> findAllIds();

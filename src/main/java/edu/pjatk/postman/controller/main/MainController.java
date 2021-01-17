@@ -29,17 +29,6 @@ public class MainController {
     }
 
 
-    /**
-     * User sends post request on localhost:9090/user/x where x is some user id
-     * He will recieve http status of the operation which is as follows:
-     * --> Find all requests where request.user_id = x
-     * --> Loop over requests List
-     * ---> Find all params of each request
-     * ---> Send request to API
-     * ---> Save response to database
-     * --> End Loop
-     * --> return status code;
-     */
     // Template: ResponseEntity<C> (Class)
     @PostMapping("test/userId/{userId}")
     public void getParamsByUserId(@PathVariable("userId") Long user_id){

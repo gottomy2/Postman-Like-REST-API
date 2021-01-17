@@ -44,7 +44,7 @@ public class RequestController {
 
     /**
      * Finds ids of all requests in the database and returns a list of Longs
-     * @return List<Long> of all ids from database
+     * @return List of all Long ids from database
      */
     @GetMapping("/getAllIds")
     public GetRequestsResponses getAllRequestsIds(){

@@ -37,7 +37,7 @@ public class ResponseService {
     /**
      * Finds all Response Object which have property request_id=requestId
      * @param requestId Id of the request by which we want to search Response table
-     * @return Optional<Response> List of Response Objects
+     * @return Optional List of Response Objects
      */
     public Optional<Response> getResponseByRequestId(Long requestId){
         return repository.findResponseByRequestId(requestId);

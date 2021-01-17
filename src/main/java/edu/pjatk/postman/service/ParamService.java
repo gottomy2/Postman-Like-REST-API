@@ -33,14 +33,14 @@ public class ParamService {
     /**
      * Finds all Params with specified request_id = id
      * @param id id of the Request to which Params belong
-     * @return Optional<Param>
+     * @return Optional of Param objects
      */
     public Optional<Param> getParamsByRequestId(Long id){
         return repository.findParamsByRequestId(id);
     }
 
     /**
-     * @return List<Long> of all Ids within params table
+     * @return List of all Long Ids within params table
      */
     public List<Long> getAllIds(){
         return repository.getAllIds();

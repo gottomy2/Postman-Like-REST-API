@@ -24,7 +24,7 @@ public interface ParamRepository extends JpaRepository<Param,Long> {
     Optional<Param> getParamById(Long id);
 
     /**
-     * @return List<Long> of all Ids within params table
+     * @return List of all Long Ids within params table
      */
     @Query("select p.id from Param p")
     List<Long> getAllIds();
@@ -32,7 +32,7 @@ public interface ParamRepository extends JpaRepository<Param,Long> {
     /**
      * Finds all Params with request_id=id
      * @param id Id of the request to which Param belongs
-     * @return Optional<Param> list of the Params with specified request_id
+     * @return Optional list of the Params with specified request_id
      */
     @Query("select p from Param p where p.requestId=?1")
     Optional<Param> findParamsByRequestId(Long id);

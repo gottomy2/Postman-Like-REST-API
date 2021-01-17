@@ -40,7 +40,7 @@ public class ParamController {
 
     /**
      * Finds all Ids of existing params in the database.
-     * @return List<Long> list of ids from the database.
+     * @return List of ids from the database.
      */
     @GetMapping("/getAllIds")
     public GetParamsResponses getParamsIds(){
@@ -51,7 +51,7 @@ public class ParamController {
     /**
      * Finds all existing params with specified requestId in the database
      * @param id - requestid to search for
-     * @return Optional<Param> all params with specified requestId
+     * @return Optional all params with specified requestId
      */
     @GetMapping("/getParamsByRequestId/{requestId}")
     public GetParamsByRequestIdResponse getParamsByRequestId(@PathVariable("requestId") Long id){
