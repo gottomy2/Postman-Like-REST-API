@@ -26,7 +26,7 @@ There are  4 main tables in the database:
 | email | character varying(255)  |
 | password | character varying(255) |
 | username | character varying(255) |
-| ------------- | ------------- |
+
 Each user can have multiple request bound to his id 
 - requests:
 
@@ -35,6 +35,7 @@ Each user can have multiple request bound to his id
 | id | bigint | ID of the request |
 | url | character varying(255) | url to call the request on |
 | user_id | bigint | Id of the user to which request belongs |
+
 Each request can have multiple parameters bound to his id
 - params:
 
@@ -43,6 +44,7 @@ Each request can have multiple parameters bound to his id
 | id | bigint | id of the parameter |
 | name | character varying(255) | name of the parameter example: "username" |
 | value | character varying(255) | value of the parameter example: "admin" |
+
 | request_id | bigint | id of the request to which param belongs
 
 - responses:
@@ -52,6 +54,7 @@ Each request can have multiple parameters bound to his id
 | id | bigint | id of the response
 | request_id | bigint | id of the request to which response is bound
 | response | character varying(255) | actuall server response
+
 Response entity is created on existing request call within MainController class
 
 ------------- 
