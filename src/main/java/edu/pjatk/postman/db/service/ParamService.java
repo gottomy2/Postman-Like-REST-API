@@ -27,7 +27,7 @@ public class ParamService {
      * @param id id of the Param Object we're looking for
      * @return Param Object
      */
-    public Param getParamById(Long id){
+    public Optional<Param> getParamById(Long id){
         return repository.getParamById(id);
     }
 
@@ -38,6 +38,10 @@ public class ParamService {
      */
     public Optional<Param> getParamsByRequestId(Long id){
         return repository.findParamsByRequestId(id);
+    }
+
+    public List<Long> getAllIds(){
+        return repository.getAllIds();
     }
 
     /**

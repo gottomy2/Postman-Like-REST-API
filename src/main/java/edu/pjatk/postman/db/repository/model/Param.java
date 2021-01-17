@@ -24,11 +24,9 @@ import javax.persistence.*;
 public class Param {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    Long id;
+    private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "request_id")
-    private Request request;
+    private Long requestId;
 
-    String name,value;
+    private String name,value;
 }
