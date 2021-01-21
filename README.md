@@ -11,7 +11,7 @@ Was to create testing service for each user to create test scenarios and perform
 #### DataBase
 Project is based on the [postgres](https://www.postgresql.org/) database on which all API calls are executed.
 Database is an existing localhost database which is blank empty before start of the application.
-There are  4 main tables in the database:
+There are  5 main tables in the database:
 - users:
 
 | Name  | Type |
@@ -22,6 +22,17 @@ There are  4 main tables in the database:
 | username | character varying(255) |
 
 Each user can have multiple request bound to his id 
+- scenarios:
+
+| Name  | Type | Description |
+| ------------- | ------------- |------------- |
+| id | bigint | id of scenario | 
+| userId | bigint | id of user to which scenario belongs |
+|requestsIds|  character varying(255) | string containing all existing requests ids in form of: "id1/id2/id3/id4/..." | 
+| name |  character varying(255) | Name of scenario | 
+| description | character varying(255) | Scenario description | 
+Each scenario can be bound to one **userId** and multiple **requestIds** provided via String
+
 - requests:
 
 | Name  | Type | Description |
@@ -38,7 +49,7 @@ Each request can have multiple parameters bound to his id
 | id | bigint | id of the parameter |
 | name | character varying(255) | name of the parameter example: "username" |
 | value | character varying(255) | value of the parameter example: "admin" |
-| request_id | bigint | id of the request to which param belongs
+| request_id | bigint | id of the request to which param belongs |
 
 - responses:
 
@@ -57,7 +68,7 @@ can be found in apitest.http file located [here](https://github.com/gottomy2/Pos
 
 -------------  
 ### JavaDocs Documentation
-Here is full [Documentation](https://gottomy2.github.io/postmanCopyDoc/) of this github project generated thorugh usage of javadocs.  
+Here is full [Documentation](https://gottomy2.github.io/postmanCopyDoc/) of this github project generated thorugh usage of javadocs.
 
 
 
