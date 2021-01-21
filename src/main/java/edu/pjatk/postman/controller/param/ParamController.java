@@ -8,6 +8,8 @@ import edu.pjatk.postman.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URI;
 import java.util.Optional;
 
 /**
@@ -61,7 +63,7 @@ public class ParamController {
     /**
      * Creates new Param Entity in the database.
      * @param request new Param parameters with values declared in body.
-     * @return ResponseEntity.notFound() if param with such id already exists or there is no existing request with specified requestId | ResponseEntity.ok() on success.
+     * @return ResponseEntity.notFound() if param with such id already exists or there is no existing request with specified requestId | ResponseEntity.created(link to getParamById) on success.
      */
     @PostMapping("/createParam")
     public ResponseEntity<Void> createParam(@RequestBody PostParamRequest request){
@@ -73,7 +75,7 @@ public class ParamController {
         else{
             Param param = new Param(request.getId(),request.getRequestId(),request.getName(),request.getValue());
             paramService.createParam(param);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.created(URI.create("https://localhost:9090/param/getParamById/" + param.getId())).build();
         }
     }
 

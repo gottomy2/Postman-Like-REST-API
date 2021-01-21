@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.Optional;
 
 /**
@@ -64,7 +65,7 @@ public class ResponseController {
     /**
      * Creates new Response object on the database (adds new response to the database)
      * @param request PostResponseResponse Object
-     * @return ResponseEntity.notFound().build() if Response already exists or request with such requestId does not exist | ResponseEntity.ok() on success
+     * @return ResponseEntity.notFound().build() if Response already exists or request with such requestId does not exist | ResponseEntity.created(link to getResponseById call) on success
      */
     @PostMapping("/createResponse")
     public ResponseEntity<Void> createResponse(@RequestBody PostResponseResponse request){
@@ -76,7 +77,7 @@ public class ResponseController {
         else{
             Response response = new Response(request.getId(),request.getRequestId(),request.getResponse());
             responseService.createResponse(response);
-            return ResponseEntity.ok().build();
+            return ResponseEntity.created(URI.create("http://localhost:9090/response/getResponseById/" + response.getId())).build();
         }
     }
 
