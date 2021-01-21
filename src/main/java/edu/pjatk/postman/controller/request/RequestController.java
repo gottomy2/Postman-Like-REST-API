@@ -65,7 +65,7 @@ public class RequestController {
         else{
             Request request = new Request(postRequestRequest.getUserId(),postRequestRequest.getUserId(),postRequestRequest.getUrl());
             requestService.createRequest(request);
-            return ResponseEntity.created(URI.create("http://localhost:8080/request/getRequestById/"+request.getId())).build();
+            return ResponseEntity.created(URI.create("http://localhost:9090/request/getRequestById/"+request.getId())).build();
         }
     }
 
