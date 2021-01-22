@@ -10,7 +10,5 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PostUserRequest {
-    private Long id;
-
     private String username,password,email;
 }
