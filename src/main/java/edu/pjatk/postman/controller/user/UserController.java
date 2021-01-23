@@ -32,7 +32,7 @@ public class UserController {
     /**
      * Finds user in the database by id
      * @param id id of the user to find in database
-     * @return if user exists returns STATUS CODE: 200 && user entity within body | if user does not exist returns STATUS CODE: 404
+     * @return if user exists returns STATUS CODE: 200 with user entity within body | if user does not exist returns STATUS CODE: 404
      */
     @GetMapping("/getUserById/{userId}")
     public ResponseEntity<GetUserResponse> getUser(@PathVariable("userId") Long id) {

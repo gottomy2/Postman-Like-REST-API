@@ -34,7 +34,7 @@ public class ScenarioController {
     /**
      * Returns Scenario Object based on template from GetScenarioResponse
      * @param id id of the scenario to search for
-     * @return STATUS CODE: 200 && found user entity on success | STATUS CODE: 404 and empty body
+     * @return STATUS CODE: 200 and found user entity on success | STATUS CODE: 404 and empty body
      */
     @GetMapping("/getScenarioById/{id}")
     public ResponseEntity<GetScenarioResponse> getScenario(@PathVariable("id") Long id){
@@ -46,7 +46,7 @@ public class ScenarioController {
     /**
      * Finds all Scenarios based on userId
      * @param id id of the user to search scenarios table for
-     * @return STATUS CODE: 200 && Optional of Scenarios with userId=id || STATUS CODE: 404 && Empty Body on failure.
+     * @return STATUS CODE: 200 and Optional of Scenarios with userId=id || STATUS CODE: 404 and Empty Body on failure.
      */
     @GetMapping("/getScenarioByUserId/{userId}")
     public ResponseEntity<GetScenarioByUserIdResponse> getScenarioByUserId(@PathVariable("userId") Long id){
@@ -60,7 +60,7 @@ public class ScenarioController {
     }
 
     /**
-     * @return STATUS CODE: 200 && Optional of all ids from the scenarios table if any exists || STATUS CODE: 404 on failure.
+     * @return STATUS CODE: 200 and Optional of all ids from the scenarios table if any exists || STATUS CODE: 404 on failure.
      */
     @GetMapping("/getAllIds/")
     public ResponseEntity<GetScenarioAllIdsResponse> getAllIds(){
@@ -76,7 +76,7 @@ public class ScenarioController {
     /**
      * Creates new Scenario in the database.
      * @param postScenario Template of Scenario object to pass in request body. Can be found within PostScenarioRequest class.
-     * @return STATUS CODE: 201 on created && scenario entity in the body || STATUS CODE: 404 and empty body on failure.
+     * @return STATUS CODE: 201 on created and scenario entity in the body || STATUS CODE: 404 and empty body on failure.
      */
     @PostMapping("/createScenario")
     public ResponseEntity<Void> createScenario(@RequestBody PostScenarioRequest postScenario){
