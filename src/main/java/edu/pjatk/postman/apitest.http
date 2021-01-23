@@ -3,13 +3,15 @@ POST http://localhost:9090/user/createUser/
 Content-Type: application/json
 
 {
-  "id": 5,
   "email": "test2@email.com",
   "username": "test2user",
   "password" : "test2password"
 }
 
-###
+### Finds user with specified id:
+GET http://localhost:9090/user/getUserById/1
+
+### Updates User by Id
 PUT http://localhost:9090/user/updateUser/
 Content-Type: application/json
 
@@ -20,11 +22,87 @@ Content-Type: application/json
   "password": "changedpassword"
 }
 
-###
-GET https://localhost:9090/user/getUserById/7
 
-###
-DELETE https://localhost:9090/user/deleteUser/7
+### Gets Requ### Create new Request:
+#POST http://localhost:9090/request/createRequest/
+#Content-Type: application/json
+#
+#{
+#  "userId": 1,
+#  "url": "http://tescior.com"
+#}est By Id:
+GET  http://localhost:9090/request/getRequestById/2
 
-###
-GET  https://localhost:9090/request/getRequestById/4
+### Updates Existing Request:
+PUT http://localhost:9090/request/updateRequest/
+Content-Type: application/json
+
+{
+  "id": 1,
+  "userId": 1,
+  "url": "http://test.com"
+}
+
+
+### Creates new Parameter:
+POST http://localhost:9090/param/createParam/
+Content-Type: application/json
+
+{
+  "requestId": 2,
+  "name": "username",
+  "value": "admin"
+}
+
+### Gets Parameter by id:
+GET http://localhost:9090/param/getParamById/1
+
+
+### Updates Parameter:
+PUT http://localhost:9090/param/updateParam/
+Content-Type: application/json
+
+{
+  "id": 1,
+  "requestId": 2,
+  "name": "username",
+  "value": "igor"
+}
+
+### Creates new Response:
+POST http://localhost:9090/response/createResponse
+Content-Type: application/json
+
+{
+  "requestId":1,
+  "response": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam volutpat lorem vestibulum, lobortis sapien a, gravida diam. Duis tempor velit eu diam semper volutpat. Nulla facilisi."
+}
+
+### Gets Response By Id:
+GET http://localhost:9090/response/getResponseById/1
+
+### Updates existing response:
+PUT http://localhost:9090/response/updateResponse
+Content-Type: application/json
+
+{
+  "id": 1,
+  "requestId":2,
+  "response": "Update Test"
+}
+
+### Creates new Scenario:
+POST http://localhost:9090/scenario/createScenario/
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "requestIds": "2/3",
+  "name": "Test Scenario TEST",
+  "description": "Tests on google service"
+}
+
+### Get Scenario by id:
+GET http://localhost:9090/scenario/getScenarioById/1
+
+
