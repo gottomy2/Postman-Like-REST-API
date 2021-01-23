@@ -2,6 +2,11 @@ package edu.pjatk.postman.controller.response.model;
 
 import lombok.*;
 
+/**
+ * @author Igor Motowidło (gottomy2)
+ * Simple template for Post request on ResponseController
+ */
+
 @Getter
 @Setter
 @Builder
@@ -9,8 +14,7 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostResponseResponse {
-    Long id;
+public class PostResponseRequest {
     private Long requestId;
     private String response;
 }
