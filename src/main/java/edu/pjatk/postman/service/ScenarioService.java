@@ -4,10 +4,14 @@ import edu.pjatk.postman.repository.ScenarioRepository;
 import edu.pjatk.postman.repository.model.Scenario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
+
+/**
+ * @author Igor Motowidło (gottomy2)
+ * Simple Service using ScenarioRepository of Scenario class
+ */
 @Service
 public class ScenarioService {
     private ScenarioRepository repository;
@@ -22,7 +26,7 @@ public class ScenarioService {
     }
 
     public Optional<Scenario> getScenarioById(Long id){
-        return repository.findScenarioById(id);
+        return repository.findById(id);
     }
 
     public Optional<Scenario>  getScenarioByUserId(Long id){
