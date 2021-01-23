@@ -4,12 +4,8 @@ import edu.pjatk.postman.controller.request.model.GetRequestResponse;
 import edu.pjatk.postman.controller.request.model.GetRequestsResponses;
 import edu.pjatk.postman.controller.request.model.PostRequestRequest;
 import edu.pjatk.postman.controller.request.model.PutRequestRequest;
-import edu.pjatk.postman.repository.model.Param;
 import edu.pjatk.postman.repository.model.Request;
-import edu.pjatk.postman.repository.model.User;
-import edu.pjatk.postman.service.ParamService;
 import edu.pjatk.postman.service.RequestService;
-import edu.pjatk.postman.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -25,7 +21,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/request")
 public class RequestController {
-    private RequestService requestService;
+    private final RequestService requestService;
 
     @Autowired
     public RequestController(RequestService requestService) {
@@ -35,7 +31,7 @@ public class RequestController {
     /**
      * Finds Request by its id in the database.
      * @param id - id of the request to find
-     * @return ResponseEntity.ok(RequestId,RequestUserId,RequestUrl) on success | ResponseEntity.notFound() on failure.
+     * @return STATUS CODE: 200 on success with Request within body | STATUS CODE: 404 on failure.
      */
     @GetMapping("/getRequestById/{requestId}")
     public ResponseEntity<GetRequestResponse> getRequest(@PathVariable("requestId") Long id) {
@@ -57,7 +53,7 @@ public class RequestController {
     /**
      * Creates new Request entity in the database
      * @param postRequestRequest new request parameters values declared in body.
-     * @return ResponseEntity.notFound on failure | ResponseEntity.created on success with API call of getRequest() method.
+     * @return STATUS CODE: 404 on failure | STATUS CODE: 201 on success with API call of getRequest() method.
      */
     @PostMapping("/createRequest")
     public ResponseEntity<Void> createRequest(@RequestBody PostRequestRequest postRequestRequest){
@@ -77,7 +73,7 @@ public class RequestController {
     /**
      * Updates existing request in the database
      * @param putRequestRequest request entity declared in body of Put REQUEST
-     * @return ResponseEntity.notFound() on non existing entity | ResponseEntity.ok() on success
+     * @return STATUS CODE: 404 on non existing entity | STATUS CODE: 200 on success
      */
     @PutMapping("/updateRequest")
     public ResponseEntity<Void> updateRequest(@RequestBody PutRequestRequest putRequestRequest){
@@ -99,7 +95,7 @@ public class RequestController {
     /**
      * Removes existing Request entity from the database
      * @param id id of request to remove
-     * @return ResponseEntity.notFound() if entity does not exist | ResponseEntity.ok() on success
+     * @return STATUS CODE: 404 if entity does not exist | STATUS CODE: 200 on success
      */
     @DeleteMapping("/deleteRequest/{requestId}")
     public ResponseEntity<Void> deleteRequest(@PathVariable("requestId") Long id){

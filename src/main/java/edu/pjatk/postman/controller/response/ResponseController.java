@@ -1,9 +1,7 @@
 package edu.pjatk.postman.controller.response;
 
 import edu.pjatk.postman.controller.response.model.*;
-import edu.pjatk.postman.repository.model.Request;
 import edu.pjatk.postman.repository.model.Response;
-import edu.pjatk.postman.service.RequestService;
 import edu.pjatk.postman.service.ResponseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,8 +18,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/response")
 public class ResponseController {
-    private ResponseService responseService;
-    private RequestService requestService;
+    private final ResponseService responseService;
+//    private RequestService requestService;
 
     @Autowired
     public ResponseController(ResponseService responseService) {
@@ -31,7 +29,7 @@ public class ResponseController {
     /**
      * Finds response in the database by id
      * @param id id of the response to find in database
-     * @return if response exists returns GetResponseResponse object | if response does not exist returns ResponseEntity.notFound()
+     * @return if response exists returns STATUS CODE: 200 with response within body | if response does not exist returns STATUS CODE: 404
      */
     @GetMapping("/getResponseById/{responseId}")
     public ResponseEntity<GetResponseResponse> getResponseById(@PathVariable("responseId") Long id){
@@ -45,7 +43,7 @@ public class ResponseController {
      * @return all Ids of responses from the database
      */
     @GetMapping("/getResponsesIds")
-    public GetResponsesResponse getResponsedIds(){
+    public GetResponsesResponse getResponsesIds(){
         return new GetResponsesResponse(responseService.getAllIds());
     }
 
@@ -62,7 +60,7 @@ public class ResponseController {
     /**
      * Creates new Response object on the database (adds new response to the database)
      * @param request PostResponseResponse Object
-     * @return ResponseEntity.notFound().build() if Response already exists or request with such requestId does not exist | ResponseEntity.created(link to getResponseById call) on success
+     * @return STATUS CODE: 404 if Response already exists | STATUS CODE: 201 (link to getResponseById call) on success
      */
     @PostMapping("/createResponse")
     public ResponseEntity<Void> createResponse(@RequestBody PostResponseRequest request){
@@ -79,7 +77,7 @@ public class ResponseController {
     /**
      * Updates Existing Response object on the database (adds new response to the database)
      * @param request PostResponseResponse Object
-     * @return ResponseEntity.notFound() if response does not exist or if request with provided requestId does not exist | ResponseEntity.ok() on success
+     * @return STATUS CODE: 404 if response does not exist | STATUS CODE: 200 on success
      */
     @PutMapping("/updateResponse")
     public ResponseEntity<Void> updateResponse(@RequestBody PutResponseRequest request){
@@ -98,9 +96,9 @@ public class ResponseController {
     /**
      * Removes Response entity with specified id from the database
      * @param id id of the Response entity to remove
-     * @return ResponseEntity.notFound() if entity with specified id does not exist | ResponseEntity.ok() on success
+     * @return STATUS CODE: 404 if entity with specified id does not exist | STATUS CODE: 200 on success
      */
-    @DeleteMapping("/deleteResponse/responseId")
+    @DeleteMapping("/deleteResponse/{responseId}")
     public ResponseEntity<Void> deleteResponse(@PathVariable("responseId") Long id){
         Optional<Response> response = responseService.getResponseById(id);
         if(response.isEmpty()){

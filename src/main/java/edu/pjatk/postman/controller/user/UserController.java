@@ -21,7 +21,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/user")
 public class UserController {
-    private UserService userService;
+    private final UserService userService;
 
 
     @Autowired
@@ -32,7 +32,7 @@ public class UserController {
     /**
      * Finds user in the database by id
      * @param id id of the user to find in database
-     * @return if user exists returns GetUserResponse object | if user does not exist returns ResponseEntity.notFound()
+     * @return if user exists returns STATUS CODE: 200 && user entity within body | if user does not exist returns STATUS CODE: 404
      */
     @GetMapping("/getUserById/{userId}")
     public ResponseEntity<GetUserResponse> getUser(@PathVariable("userId") Long id) {
@@ -65,7 +65,7 @@ public class UserController {
     /**
      * Updates existing user on the database
      * @param request PutUserRequest object containing basic user parameters
-     * @return ResponseEntity.ok() on success | ResponseEnityt.notFound() on failure
+     * @return STATUS CODE: 200 on success | STATUS CODE: 404 on failure
      */
     @PutMapping("/updateUser")
     public ResponseEntity<Void> putUser(@RequestBody PutUserRequest request){
@@ -86,14 +86,14 @@ public class UserController {
     /**
      * Removes specific user from the database
      * @param id of the user to remove
-     * @return ResponseEnitity.accepted() on success | ResponseEntity.notFound() on failure
+     * @return STATUS CODE: 200 on success | STATUS CODE: 404 on failure
      */
     @DeleteMapping("/deleteUser/{userId}")
     public ResponseEntity<Void> deleteUser(@PathVariable("userId") Long id){
         Optional<User> user = userService.findUserById(id);
         if(user.isPresent()){
             userService.deleteUser(user.get());
-            return ResponseEntity.accepted().build();
+            return ResponseEntity.ok().build();
         }
         else{
             return ResponseEntity.notFound().build();

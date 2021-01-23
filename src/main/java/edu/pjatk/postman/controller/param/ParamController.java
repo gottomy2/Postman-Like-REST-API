@@ -2,9 +2,7 @@ package edu.pjatk.postman.controller.param;
 
 import edu.pjatk.postman.controller.param.model.*;
 import edu.pjatk.postman.repository.model.Param;
-import edu.pjatk.postman.repository.model.Request;
 import edu.pjatk.postman.service.ParamService;
-import edu.pjatk.postman.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +18,8 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/param")
 public class ParamController {
-    private ParamService paramService;
-    private RequestService requestService;
+    private final ParamService paramService;
+//    private RequestService requestService;
 
     @Autowired
     public ParamController(ParamService paramService) {
@@ -52,7 +50,7 @@ public class ParamController {
 
     /**
      * Finds all existing params with specified requestId in the database
-     * @param id - requestid to search for
+     * @param id - requestId to search for
      * @return Optional all params with specified requestId
      */
     @GetMapping("/getParamsByRequestId/{requestId}")

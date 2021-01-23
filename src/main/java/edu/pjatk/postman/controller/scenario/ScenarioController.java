@@ -20,9 +20,11 @@ import java.util.Optional;
 @RequestMapping("/scenario")
 public class ScenarioController {
     private final ScenarioService scenarioService;
-    //Removed since validation is now on database side:
-//    private UserService userService;
-//    private RequestService requestService;
+    // Removed since validation is now on database side:
+    // private UserService userService;
+    // private RequestService requestService;
+
+
 
     @Autowired
     public ScenarioController(ScenarioService scenarioService) {
@@ -32,7 +34,7 @@ public class ScenarioController {
     /**
      * Returns Scenario Object based on template from GetScenarioResponse
      * @param id id of the scenario to search for
-     * @return Status code 200 && found user entity on success | Status code 404 and empty body
+     * @return STATUS CODE: 200 && found user entity on success | STATUS CODE: 404 and empty body
      */
     @GetMapping("/getScenarioById/{id}")
     public ResponseEntity<GetScenarioResponse> getScenario(@PathVariable("id") Long id){
@@ -44,7 +46,7 @@ public class ScenarioController {
     /**
      * Finds all Scenarios based on userId
      * @param id id of the user to search scenarios table for
-     * @return Status code 200 && Optional of Scenarios with userId=id || Status code 404 && Empty Body on failure.
+     * @return STATUS CODE: 200 && Optional of Scenarios with userId=id || STATUS CODE: 404 && Empty Body on failure.
      */
     @GetMapping("/getScenarioByUserId/{userId}")
     public ResponseEntity<GetScenarioByUserIdResponse> getScenarioByUserId(@PathVariable("userId") Long id){
@@ -58,7 +60,7 @@ public class ScenarioController {
     }
 
     /**
-     * @return Status Code 200 && Optional of all ids from the scenarios table if any exists || Status code 404 on failure.
+     * @return STATUS CODE: 200 && Optional of all ids from the scenarios table if any exists || STATUS CODE: 404 on failure.
      */
     @GetMapping("/getAllIds/")
     public ResponseEntity<GetScenarioAllIdsResponse> getAllIds(){
@@ -74,7 +76,7 @@ public class ScenarioController {
     /**
      * Creates new Scenario in the database.
      * @param postScenario Template of Scenario object to pass in request body. Can be found within PostScenarioRequest class.
-     * @return Status code 201 on created && scenario entity in the body || Status code 404 and empty body on failure.
+     * @return STATUS CODE: 201 on created && scenario entity in the body || STATUS CODE: 404 and empty body on failure.
      */
     @PostMapping("/createScenario")
     public ResponseEntity<Void> createScenario(@RequestBody PostScenarioRequest postScenario){
@@ -109,7 +111,7 @@ public class ScenarioController {
     /**
      * Updates existing scenario entity in the database.
      * @param putScenario Scenario object passed in Request Body matching the template of PutScenarioRequest.class
-     * @return Status code 200 on created || Status code 404 on failure.
+     * @return STATUS CODE: 200 on created || STATUS CODE: 404 on failure.
      */
     @PutMapping("/updateScenario")
     public ResponseEntity<Void> updateScenario(@RequestBody PutScenarioRequest putScenario){
@@ -126,7 +128,7 @@ public class ScenarioController {
     /**
      * Deletes existing scenario entity from the database.
      * @param id id of scenario to remove from the database
-     * @return Status code 200 on update || Status code 404 on failure.
+     * @return STATUS CODE: 200 on update || STATUS CODE: 404 on failure.
      */
     @DeleteMapping("/deleteScenario/{id}")
     public ResponseEntity<Void> deleteScenario(@PathVariable("id") Long id){
