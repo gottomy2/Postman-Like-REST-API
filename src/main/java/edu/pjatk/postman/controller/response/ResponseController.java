@@ -1,9 +1,6 @@
 package edu.pjatk.postman.controller.response;
 
-import edu.pjatk.postman.controller.response.model.GetResponseByRequestId;
-import edu.pjatk.postman.controller.response.model.GetResponseResponse;
-import edu.pjatk.postman.controller.response.model.GetResponsesResponse;
-import edu.pjatk.postman.controller.response.model.PostResponseResponse;
+import edu.pjatk.postman.controller.response.model.*;
 import edu.pjatk.postman.repository.model.Request;
 import edu.pjatk.postman.repository.model.Response;
 import edu.pjatk.postman.service.RequestService;
@@ -68,17 +65,15 @@ public class ResponseController {
      * @return ResponseEntity.notFound().build() if Response already exists or request with such requestId does not exist | ResponseEntity.created(link to getResponseById call) on success
      */
     @PostMapping("/createResponse")
-    public ResponseEntity<Void> createResponse(@RequestBody PostResponseResponse request){
-        Optional<Response> check = responseService.getResponseById(request.getId());
-        Optional<Request> check2 = requestService.findRequestById(request.getId());
-        if(check.isPresent() || check2.isEmpty()){
-            return ResponseEntity.notFound().build();
-        }
-        else{
-            Response response = new Response(request.getId(),request.getRequestId(),request.getResponse());
-            responseService.createResponse(response);
-            return ResponseEntity.created(URI.create("http://localhost:9090/response/getResponseById/" + response.getId())).build();
-        }
+    public ResponseEntity<Void> createResponse(@RequestBody PostResponseRequest request){
+//        Optional<Response> check = responseService.getResponseById(request.getId());
+//        Optional<Request> check2 = requestService.findRequestById(request.getId());
+//        if(check.isPresent() || check2.isEmpty()){
+//            return ResponseEntity.notFound().build();
+//        }
+        Response response = new Response(request.getRequestId(),request.getResponse());
+        responseService.createResponse(response);
+        return ResponseEntity.created(URI.create("http://localhost:9090/response/getResponseById/" + response.getId())).build();
     }
 
     /**
@@ -87,10 +82,10 @@ public class ResponseController {
      * @return ResponseEntity.notFound() if response does not exist or if request with provided requestId does not exist | ResponseEntity.ok() on success
      */
     @PutMapping("/updateResponse")
-    public ResponseEntity<Void> updateResponse(@RequestBody PostResponseResponse request){
+    public ResponseEntity<Void> updateResponse(@RequestBody PutResponseRequest request){
         Optional<Response> check = responseService.getResponseById(request.getId());
-        Optional<Request> check2 = requestService.findRequestById(request.getId());
-        if(check.isEmpty() || check2.isEmpty()){
+//        Optional<Request> check2 = requestService.findRequestById(request.getId());
+        if(check.isEmpty() /*|| check2.isEmpty()*/){
             return ResponseEntity.notFound().build();
         }
         else{
@@ -111,9 +106,7 @@ public class ResponseController {
         if(response.isEmpty()){
             return ResponseEntity.notFound().build();
         }
-        else{
-            responseService.deleteResponse(response.get());
-            return ResponseEntity.ok().build();
-        }
+        responseService.deleteResponse(response.get());
+        return ResponseEntity.ok().build();
     }
 }
