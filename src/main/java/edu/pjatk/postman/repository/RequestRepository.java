@@ -17,14 +17,14 @@ import java.util.Optional;
 public interface RequestRepository extends JpaRepository<Request,Long> {
 
     /**
-     * @return List of all Long ids from request table
+     * @return List of all Long ids from requests table
      */
     @Query("select r.id from Request r")
     List<Long> findAllIds();
 
     /**
-     * @param id - id of user to Requests table search for
-     * @return Optional all Requests where Request.userId=id;
+     * @param id - id of user to search the requests table for
+     * @return Optional all Requests where Request.userId=id
      */
     @Query("select r from Request r where r.userId=?1")
     Optional<Request> requestList(Long id);
