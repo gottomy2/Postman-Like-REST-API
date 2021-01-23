@@ -19,10 +19,15 @@ import javax.persistence.*;
 @Table(name = "responses")
 public class Response {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;
 
     private Long requestId;
 
     private String response;
+
+    public Response(Long requestId, String response) {
+        this.requestId = requestId;
+        this.response = response;
+    }
 }

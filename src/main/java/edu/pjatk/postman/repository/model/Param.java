@@ -19,10 +19,16 @@ import javax.persistence.*;
 @Table(name = "params")
 public class Param {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Long requestId;
 
     private String name,value;
+
+    public Param(Long requestId, String name, String value) {
+        this.requestId = requestId;
+        this.name = name;
+        this.value = value;
+    }
 }

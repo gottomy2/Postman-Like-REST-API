@@ -1,13 +1,11 @@
 package edu.pjatk.postman.repository.model;
 
 import lombok.*;
-
 import javax.persistence.*;
-import java.util.List;
 
 /**
- * @author gottomy2
- * Creates the 'scenarios' table on the database
+ * @author Igor Motowidlo (gottomy2)
+ * Simple Entity class for Scenarios
  */
 
 @Getter
@@ -21,10 +19,17 @@ import java.util.List;
 @Table(name = "scenarios")
 public class Scenario {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Long userId;
 
     private String requestIds,name,description;
+
+    public Scenario(Long userId, String requestIds, String name, String description) {
+        this.userId = userId;
+        this.requestIds = requestIds;
+        this.name = name;
+        this.description = description;
+    }
 }

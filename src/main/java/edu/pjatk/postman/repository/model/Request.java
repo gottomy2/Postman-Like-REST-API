@@ -20,11 +20,15 @@ import javax.persistence.*;
 @Table(name = "requests")
 public class Request {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Access(AccessType.PROPERTY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private Long userId;
 
     private String url;
+
+    public Request(Long userId, String url) {
+        this.userId = userId;
+        this.url = url;
+    }
 }
