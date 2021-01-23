@@ -11,7 +11,7 @@ import java.util.Optional;
 
 /**
  * @author Igor Motowidło (gottomy2)
- * Simple Service for ParamRepository class
+ * Simple Service using RequestRepository of Request class
  */
 @Service
 public class RequestService {
