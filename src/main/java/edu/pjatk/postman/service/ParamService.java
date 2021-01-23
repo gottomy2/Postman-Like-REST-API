@@ -13,7 +13,7 @@ import java.util.Optional;
  */
 @Service
 public class ParamService {
-    private ParamRepository repository;
+    private final ParamRepository repository;
 
     @Autowired
     public ParamService(ParamRepository paramRepository) {

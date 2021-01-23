@@ -13,7 +13,7 @@ import java.util.Optional;
  */
 @Service
 public class ResponseService {
-    private ResponseRepository repository;
+    private final ResponseRepository repository;
 
     @Autowired
     public ResponseService(ResponseRepository repository) {

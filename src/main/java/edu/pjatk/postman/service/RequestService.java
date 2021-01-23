@@ -14,7 +14,7 @@ import java.util.Optional;
  */
 @Service
 public class RequestService {
-    private RequestRepository repository;
+    private final RequestRepository repository;
 
     @Autowired
     public RequestService(RequestRepository repository) {
