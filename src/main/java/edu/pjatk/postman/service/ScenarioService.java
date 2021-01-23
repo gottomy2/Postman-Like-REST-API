@@ -14,7 +14,7 @@ import java.util.Optional;
  */
 @Service
 public class ScenarioService {
-    private ScenarioRepository repository;
+    private final ScenarioRepository repository;
 
     @Autowired
     public ScenarioService(ScenarioRepository scenarioRepository) {
@@ -29,9 +29,9 @@ public class ScenarioService {
         return repository.findById(id);
     }
 
-    public Optional<Scenario>  getScenarioByUserId(Long id){
-        return repository.findScenariosByUserId(id);
-    }
+//    public Optional<Scenario>  getScenarioByUserId(Long id){
+//        return repository.findScenariosByUserId(id);
+//    }
 
     public void createScenario(Scenario scenario){
         repository.save(scenario);

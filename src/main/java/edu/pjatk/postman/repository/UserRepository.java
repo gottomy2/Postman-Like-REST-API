@@ -19,13 +19,6 @@ public interface UserRepository extends JpaRepository<User,Long> {
     @Query("select u.id from User u")
     List<Long> findAllIds();
 
-    /**
-     * @param username name of the User object we are looking for.
-     * @return Long id - id of the User we've been searching for.
-     */
-    @Query("select u.id from User u where u.username = ?1")
-    Long findIdByName(String username);
-
 
     /**
      * @param id ID of the user in the database
