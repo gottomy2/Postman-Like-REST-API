@@ -2,6 +2,11 @@ package edu.pjatk.postman.controller.request.model;
 
 import lombok.*;
 
+/**
+ * @author Igor Motowidło (gottomy2)
+ * Simple template for Put Request on RequestControler
+ */
+
 @Getter
 @Setter
 @Builder
@@ -9,7 +14,7 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostRequestResponse {
+public class PutRequestRequest {
     private Long id;
     private Long userId;
     private String url;
