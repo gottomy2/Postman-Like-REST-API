@@ -4,8 +4,9 @@ import lombok.*;
 
 /**
  * @author Igor Motowidło (gottomy2)
- * Simple template for sending POST request to ScenarioController
+ * Simple Put Request template for ScenarioController
  */
+
 @Getter
 @Setter
 @Builder
@@ -13,7 +14,8 @@ import lombok.*;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class PostScenarioRequest {
+public class PutScenarioRequest {
+    private Long id;
     private Long userId;
     private String requestIds,name,description;
 }
