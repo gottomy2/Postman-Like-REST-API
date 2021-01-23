@@ -27,8 +27,8 @@ Each user can have multiple request bound to his id
 | Name  | Type | Description |
 | ------------- | ------------- |------------- |
 | id | bigint | id of scenario | 
-| userId | bigint | id of user to which scenario belongs |
-|requestsIds|  character varying(255) | string containing all existing requests ids in form of: "id1/id2/id3/id4/..." | 
+| user_id | bigint | id of user to which scenario belongs |
+|request_ids|  character varying(255) | string containing all existing requests ids in form of: "id1/id2/id3/id4..." | 
 | name |  character varying(255) | Name of scenario | 
 | description | character varying(255) | Scenario description |
 
