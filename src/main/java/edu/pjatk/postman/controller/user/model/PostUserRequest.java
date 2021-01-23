@@ -15,5 +15,5 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PostUserRequest {
-    private String username,password,email;
+    private String username,password,email,privilege;
 }

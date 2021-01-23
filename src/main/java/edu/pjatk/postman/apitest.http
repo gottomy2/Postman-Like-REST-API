@@ -19,7 +19,8 @@ Content-Type: application/json
   "id": 1,
   "email": "changed@test.com",
   "username": "changeduser",
-  "password": "changedpassword"
+  "password": "changedpassword",
+  "privilege": "normal_user"
 }
 
 

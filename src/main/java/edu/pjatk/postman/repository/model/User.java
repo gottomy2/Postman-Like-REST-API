@@ -22,11 +22,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String username,password,email;
+    private String username,password,email,privilege;
 
-    public User(String username, String password, String email) {
+    public User(String username, String password, String email,String privilege) {
         this.username = username;
         this.password = password;
         this.email = email;
+        this.privilege=privilege;
     }
 }

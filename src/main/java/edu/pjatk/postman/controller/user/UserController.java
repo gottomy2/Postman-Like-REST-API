@@ -57,7 +57,7 @@ public class UserController {
      */
     @PostMapping("/createUser")
     public ResponseEntity<Void> postUser(@RequestBody PostUserRequest request){
-        User user = new User(request.getUsername(),request.getPassword(),request.getEmail());
+        User user = new User(request.getUsername(),request.getPassword(),request.getEmail(),request.getPrivilege());
         userService.createUser(user);
         return ResponseEntity.created(URI.create("http://localhost:9090/user/getUserById/"+user.getId())).build();
     }
