@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 /**
  * @author Igor Motowidło (gottomy2)
- * Simple User Entity Class
+ * Creates the 'users' table on the database
  */
 
 @Getter

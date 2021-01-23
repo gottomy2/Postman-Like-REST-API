@@ -3,6 +3,11 @@ package edu.pjatk.postman.controller.user.model;
 import lombok.*;
 import java.util.List;
 
+/**
+ * @author Igor Motowidło (gottomy2)
+ * Simple Get Response model for UserController
+ */
+
 @Getter
 @Setter
 @Builder

@@ -4,14 +4,13 @@ import edu.pjatk.postman.repository.RequestRepository;
 import edu.pjatk.postman.repository.model.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
 
 /**
  * @author Igor Motowidło (gottomy2)
- * Simple Service using RequestRepository of Request class
+ * Simple Service using RequestRepository class
  */
 @Service
 public class RequestService {

@@ -5,7 +5,7 @@ import javax.persistence.*;
 
 /**
  * @author Igor Motowidlo (gottomy2)
- * Simple Entity class for Scenarios
+ * Creates the 'scenarios' table on the database
  */
 
 @Getter

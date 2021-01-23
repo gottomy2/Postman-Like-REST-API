@@ -1,12 +1,11 @@
 package edu.pjatk.postman.repository.model;
 
 import lombok.*;
-
 import javax.persistence.*;
 
 /**
  * @author Igor Motowidlo (gottomy2)
- * Simple Entity class for Requests
+ * Creates the 'requests' table on the database
  */
 
 @Getter

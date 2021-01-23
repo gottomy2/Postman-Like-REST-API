@@ -4,7 +4,7 @@ import lombok.*;
 
 /**
  * @author Igor Motowidło (gottomy2)
- * Simple template for Put Request on RequestControler
+ * Simple Put Request model for RequestController
  */
 
 @Getter

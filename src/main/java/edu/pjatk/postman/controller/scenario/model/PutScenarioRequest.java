@@ -4,7 +4,7 @@ import lombok.*;
 
 /**
  * @author Igor Motowidło (gottomy2)
- * Simple Put Request template for ScenarioController
+ * Simple Put Request model for ScenarioController
  */
 
 @Getter

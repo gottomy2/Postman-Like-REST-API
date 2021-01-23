@@ -4,6 +4,11 @@ import edu.pjatk.postman.repository.model.Scenario;
 import lombok.*;
 import java.util.Optional;
 
+/**
+ * @author Igor Motowidło (gottomy2)
+ * Simple Get Response model for ScenarioController
+ */
+
 @Getter
 @Setter
 @Builder

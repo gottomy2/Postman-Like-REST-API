@@ -4,6 +4,12 @@ import lombok.*;
 
 import java.util.List;
 
+
+/**
+ * @author Igor Motowidło (gottomy2)
+ * Simple Get Response model for RequestController
+ */
+
 @Getter
 @Setter
 @Builder

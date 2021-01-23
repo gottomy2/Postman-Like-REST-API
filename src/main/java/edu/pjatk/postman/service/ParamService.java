@@ -4,7 +4,6 @@ import edu.pjatk.postman.repository.ParamRepository;
 import edu.pjatk.postman.repository.model.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 

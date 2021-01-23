@@ -4,7 +4,7 @@ import lombok.*;
 
 /**
  * @author Igor Motowidło (gottomy2)
- * Simple template for Post request on ParamController
+ * Simple Post Request model for ParamController
  */
 
 @Getter
