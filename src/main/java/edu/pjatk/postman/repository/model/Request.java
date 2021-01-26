@@ -24,10 +24,12 @@ public class Request {
 
     private Long userId;
 
-    private String url;
+    private String url,header,type;
 
-    public Request(Long userId, String url) {
+    public Request(Long userId, String url, String header, String type) {
         this.userId = userId;
         this.url = url;
+        this.header=header;
+        this.type=type;
     }
 }

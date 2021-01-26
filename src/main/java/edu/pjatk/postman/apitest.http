@@ -3,9 +3,10 @@ POST http://localhost:9090/user/createUser/
 Content-Type: application/json
 
 {
-  "email": "test2@email.com",
-  "username": "test2user",
-  "password" : "test2password"
+  "email": "igor@email.com",
+  "username": "gottomy",
+  "password" : "test1password",
+  "privilege": "admin"
 }
 
 ### Finds user with specified id:
@@ -20,19 +21,23 @@ Content-Type: application/json
   "email": "changed@test.com",
   "username": "changeduser",
   "password": "changedpassword",
-  "privilege": "normal_user"
+  "privilege": "admin"
 }
 
 
-### Gets Requ### Create new Request:
-#POST http://localhost:9090/request/createRequest/
-#Content-Type: application/json
-#
-#{
-#  "userId": 1,
-#  "url": "http://tescior.com"
-#}est By Id:
-GET  http://localhost:9090/request/getRequestById/2
+### Create new Request:
+POST http://localhost:9090/request/createRequest/
+Content-Type: application/json
+
+{
+  "userId": 1,
+  "url": "http://google.com",
+  "header": "someheader123",
+  "type": "POST"
+}
+
+###Gets request By Id:
+GET  http://localhost:9090/request/getRequestById/1
 
 ### Updates Existing Request:
 PUT http://localhost:9090/request/updateRequest/
@@ -98,7 +103,7 @@ Content-Type: application/json
 
 {
   "userId": 1,
-  "requestIds": "2/3",
+  "requestIds": "1/2",
   "name": "Test Scenario TEST",
   "description": "Tests on google service"
 }

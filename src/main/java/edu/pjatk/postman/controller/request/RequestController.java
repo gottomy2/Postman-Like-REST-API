@@ -36,7 +36,7 @@ public class RequestController {
     @GetMapping("/getRequestById/{requestId}")
     public ResponseEntity<GetRequestResponse> getRequest(@PathVariable("requestId") Long id) {
         Optional<Request> request = requestService.findRequestById(id);
-        return request.map(value -> ResponseEntity.ok(new GetRequestResponse(value.getId(),value.getUserId(),value.getUrl())))
+        return request.map(value -> ResponseEntity.ok(new GetRequestResponse(value.getId(),value.getUserId(),value.getUrl(),value.getHeader(),value.getType())))
                 .orElseGet(() -> ResponseEntity.notFound().build());
     }
 
@@ -52,11 +52,11 @@ public class RequestController {
     //TODO: solve "type=Method Not Allowed, status=405" problem.
     /**
      * Creates new Request entity in the database
-     * @param postRequestRequest new request parameters values declared in body.
+     * @param requestRequest new request parameters values declared in body.
      * @return STATUS CODE: 404 on failure | STATUS CODE: 201 on success with API call of getRequest() method.
      */
     @PostMapping("/createRequest")
-    public ResponseEntity<Void> createRequest(@RequestBody PostRequestRequest postRequestRequest){
+    public ResponseEntity<Void> createRequest(@RequestBody PostRequestRequest requestRequest){
 //        System.out.println("[123123123123123123123 ID ]: " + postRequestRequest.getUserId());
 //        System.out.println("[CHECK USER: ]" + this.userService.findUserById(postRequestRequest.getUserId()));
 //        Optional<User> checkUser = this.userService.findUserById(postRequestRequest.getUserId());
@@ -65,7 +65,7 @@ public class RequestController {
 //            return ResponseEntity.notFound().build();
 //        }
 
-        Request request = new Request(postRequestRequest.getUserId(),postRequestRequest.getUrl());
+        Request request = new Request(requestRequest.getUserId(),requestRequest.getUrl(),requestRequest.getHeader(),requestRequest.getType());
         System.out.println(request);
         requestService.createRequest(request);
         return ResponseEntity.created(URI.create("http://localhost:9090/request/getRequestById/"+request.getId())).build();

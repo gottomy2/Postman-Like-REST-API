@@ -17,5 +17,5 @@ import lombok.*;
 @NoArgsConstructor
 public class PostRequestRequest {
     private Long userId;
-    private String url;
+    private String url,header,type;
 }
