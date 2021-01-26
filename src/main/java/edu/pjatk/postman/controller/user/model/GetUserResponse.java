@@ -17,5 +17,5 @@ import lombok.*;
 public class GetUserResponse {
     private Long id;
 
-    private String username,password,email;
+    private String username,password,email,privilege;
 }
