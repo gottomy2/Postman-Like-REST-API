@@ -4,7 +4,7 @@ Was to achieve cloud located app similar to [Postman](https://www.postman.com/)
 
 -------------
 ### Goal for this project
-Was to create testing service for each user to create test scenarios and perform multiple requests on API service created by [ Mr Valentyn Kuts](). Notice, that this project consists only of backend in form of Java Spring Application to which frontend is prepared by [Mr Maciej Milewski](https://github.com/MaciejMilewski)  
+Was to create testing service for each user to create test scenarios and perform multiple requests on [API service](https://github.com/valentynkuts/arc_postman) created by [ Mr Valentyn Kuts](https://github.com/valentynkuts). Notice, that this project consists only of backend in form of Java Spring Application to which frontend is prepared by [Mr Maciej Milewski](https://github.com/MaciejMilewski)  
 
 -------------  
 ### Useful Informations
