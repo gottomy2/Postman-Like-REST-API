@@ -17,5 +17,5 @@ import lombok.*;
 public class GetRequestResponse {
     private Long id;
     private Long userId;
-    private String url,header,type;
+    private String host,url,type;
 }
