@@ -1,13 +1,18 @@
 package edu.pjatk.postman.controller.scenario;
 
 import edu.pjatk.postman.controller.scenario.model.*;
+import edu.pjatk.postman.repository.model.Request;
 import edu.pjatk.postman.repository.model.Scenario;
+import edu.pjatk.postman.repository.model.User;
+import edu.pjatk.postman.service.RequestService;
 import edu.pjatk.postman.service.ScenarioService;
+import edu.pjatk.postman.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,15 +25,16 @@ import java.util.Optional;
 @RequestMapping("/scenario")
 public class ScenarioController {
     private final ScenarioService scenarioService;
-    // Removed since validation is now on database side:
-    // private UserService userService;
-    // private RequestService requestService;
+     private final UserService userService;
+     private final RequestService requestService;
 
 
 
     @Autowired
-    public ScenarioController(ScenarioService scenarioService) {
+    public ScenarioController(ScenarioService scenarioService,UserService userService,RequestService requestService) {
         this.scenarioService = scenarioService;
+        this.userService=userService;
+        this.requestService=requestService;
     }
 
     /**
@@ -80,32 +86,26 @@ public class ScenarioController {
      */
     @PostMapping("/createScenario")
     public ResponseEntity<Void> createScenario(@RequestBody PostScenarioRequest postScenario){
-//        Optional<User> user = userService.findUserById(postScenario.getUserId());
-//        Optional<Scenario> check = scenarioService.getScenarioById(postScenario.getId());
-//        if(user.isPresent()){
-//            String[] requestIds = postScenario.getRequestIds().split("/");
-//            List<Request> existingRequests = new ArrayList<>();
-//
-//            for (String requestId : requestIds) {
-//                Optional<Request> request = requestService.findRequestById(Long.parseLong(requestId));
-//                request.ifPresent(existingRequests::add);
-//            }
-//
-//            if(requestIds.length==existingRequests.size()){
-//                if(check.isPresent()){
-//                    return ResponseEntity.notFound().build();
-//                }
-//                else{
-//        System.out.println(postScenario);
-        Scenario scenario = new Scenario(postScenario.getUserId(),
-                postScenario.getRequestIds(), postScenario.getName(), postScenario.getDescription());
-        System.out.println(scenario);
-        scenarioService.createScenario(scenario);
-        return ResponseEntity.created(URI.create("http://localhost:9090/scenario/getScenarioById/" + scenario.getId())).build();
-//                }
-//            }
-//        }
-//        return ResponseEntity.notFound().build();
+        Optional<User> user = userService.findUserById(postScenario.getUserId());
+        if(user.isPresent()){
+            String[] requestIds = postScenario.getRequestIds().split("/");
+            List<Request> existingRequests = new ArrayList<>();
+
+            for (String requestId : requestIds) {
+                Optional<Request> request = requestService.findRequestById(Long.parseLong(requestId));
+                request.ifPresent(existingRequests::add);
+            }
+
+            if(requestIds.length==existingRequests.size()){
+                System.out.println(postScenario);
+                Scenario scenario = new Scenario(postScenario.getUserId(),
+                        postScenario.getRequestIds(), postScenario.getName(), postScenario.getDescription());
+                System.out.println(scenario);
+                scenarioService.createScenario(scenario);
+                return ResponseEntity.created(URI.create("http://localhost:9090/scenario/getScenarioById/" + scenario.getId())).build();
+            }
+        }
+        return ResponseEntity.notFound().build();
     }
 
     /**
