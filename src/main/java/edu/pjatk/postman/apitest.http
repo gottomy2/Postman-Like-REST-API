@@ -10,7 +10,7 @@ Content-Type: application/json
 }
 
 ### Finds user with specified id:
-GET http://localhost:9090/user/getUserById/1
+GET http://localhost:9090/user/getUserById/2
 
 ### Updates User by Id
 PUT http://localhost:9090/user/updateUser/
@@ -31,13 +31,13 @@ Content-Type: application/json
 
 {
   "userId": 1,
-  "url": "http://google.com",
-  "header": "someheader123",
-  "type": "POST"
+  "url": "/todos/7",
+  "host": "jsonplaceholder.typicode.com",
+  "type": "GET"
 }
 
 ###Gets request By Id:
-GET  http://localhost:9090/request/getRequestById/1
+GET  http://localhost:9090/request/getRequestById/3
 
 ### Updates Existing Request:
 PUT http://localhost:9090/request/updateRequest/
@@ -49,6 +49,9 @@ Content-Type: application/json
   "url": "http://test.com"
 }
 
+###
+DELETE http://localhost:9090/request/deleteRequest/1
+
 
 ### Creates new Parameter:
 POST http://localhost:9090/param/createParam/
@@ -56,8 +59,8 @@ Content-Type: application/json
 
 {
   "requestId": 2,
-  "name": "username",
-  "value": "admin"
+  "name": "postId",
+  "value": "1"
 }
 
 ### Gets Parameter by id:
@@ -112,3 +115,25 @@ Content-Type: application/json
 GET http://localhost:9090/scenario/getScenarioById/1
 
 
+###
+POST http://localhost:9090/request/sendRequest/3
+
+###
+POST http://localhost:3000/requests/123
+"Content-Type": "application/json"
+
+{
+  "userId": "1234",
+  "Headers": {"Content-Type": "application/json"},
+  "Params": {},
+  "Body": {},
+  "Host": "jsonplaceholder.typicode.com",
+  "Method": "GET",
+  "Url": "/todos/7"
+}
+
+###
+GET http://localhost:3000/user/requests/1
+
+###
+GET http://localhost:3000/requests/3
