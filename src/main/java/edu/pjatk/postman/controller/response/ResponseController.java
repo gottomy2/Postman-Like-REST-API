@@ -1,7 +1,9 @@
 package edu.pjatk.postman.controller.response;
 
 import edu.pjatk.postman.controller.response.model.*;
+import edu.pjatk.postman.repository.model.Request;
 import edu.pjatk.postman.repository.model.Response;
+import edu.pjatk.postman.service.RequestService;
 import edu.pjatk.postman.service.ResponseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,11 +21,12 @@ import java.util.Optional;
 @RequestMapping("/response")
 public class ResponseController {
     private final ResponseService responseService;
-//    private RequestService requestService;
+    private final RequestService requestService;
 
     @Autowired
-    public ResponseController(ResponseService responseService) {
+    public ResponseController(ResponseService responseService,RequestService requestService) {
         this.responseService = responseService;
+        this.requestService=requestService;
     }
 
     /**
@@ -64,11 +67,10 @@ public class ResponseController {
      */
     @PostMapping("/createResponse")
     public ResponseEntity<Void> createResponse(@RequestBody PostResponseRequest request){
-//        Optional<Response> check = responseService.getResponseById(request.getId());
-//        Optional<Request> check2 = requestService.findRequestById(request.getId());
-//        if(check.isPresent() || check2.isEmpty()){
-//            return ResponseEntity.notFound().build();
-//        }
+        Optional<Request> check = requestService.findRequestById(request.getRequestId());
+        if(check.isPresent()){
+            return ResponseEntity.notFound().build();
+        }
         Response response = new Response(request.getRequestId(),request.getResponse());
         responseService.createResponse(response);
         return ResponseEntity.created(URI.create("http://localhost:9090/response/getResponseById/" + response.getId())).build();
@@ -82,8 +84,8 @@ public class ResponseController {
     @PutMapping("/updateResponse")
     public ResponseEntity<Void> updateResponse(@RequestBody PutResponseRequest request){
         Optional<Response> check = responseService.getResponseById(request.getId());
-//        Optional<Request> check2 = requestService.findRequestById(request.getId());
-        if(check.isEmpty() /*|| check2.isEmpty()*/){
+        Optional<Request> check2 = requestService.findRequestById(request.getRequestId());
+        if(check.isEmpty() || check2.isEmpty()){
             return ResponseEntity.notFound().build();
         }
         else{
