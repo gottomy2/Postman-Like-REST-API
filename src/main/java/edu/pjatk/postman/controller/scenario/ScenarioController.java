@@ -1,18 +1,22 @@
 package edu.pjatk.postman.controller.scenario;
 
 import edu.pjatk.postman.controller.scenario.model.*;
-import edu.pjatk.postman.repository.model.Request;
-import edu.pjatk.postman.repository.model.Scenario;
-import edu.pjatk.postman.repository.model.User;
-import edu.pjatk.postman.service.RequestService;
-import edu.pjatk.postman.service.ScenarioService;
-import edu.pjatk.postman.service.UserService;
+import edu.pjatk.postman.repository.model.*;
+import edu.pjatk.postman.service.*;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
 import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,16 +29,24 @@ import java.util.Optional;
 @RequestMapping("/scenario")
 public class ScenarioController {
     private final ScenarioService scenarioService;
-     private final UserService userService;
-     private final RequestService requestService;
+    private final RequestService requestService;
+    private final ParamService paramService;
+    private final HeaderService headerService;
+    private final BodyService bodyService;
+    private final ResponseService responseService;
+    private final UserService userService;
 
-
+     String POSTMAN_API="http://localhost:3000/";
 
     @Autowired
-    public ScenarioController(ScenarioService scenarioService,UserService userService,RequestService requestService) {
+    public ScenarioController(ScenarioService scenarioService, RequestService requestService, ParamService paramService, HeaderService headerService, BodyService bodyService, ResponseService responseService, UserService userService) {
         this.scenarioService = scenarioService;
-        this.userService=userService;
-        this.requestService=requestService;
+        this.requestService = requestService;
+        this.paramService = paramService;
+        this.headerService = headerService;
+        this.bodyService = bodyService;
+        this.responseService = responseService;
+        this.userService = userService;
     }
 
     /**
@@ -104,6 +116,143 @@ public class ScenarioController {
                 scenarioService.createScenario(scenario);
                 return ResponseEntity.created(URI.create("http://localhost:9090/scenario/getScenarioById/" + scenario.getId())).build();
             }
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    public static <T> List<T> toList(Optional<T> opt) {
+        return opt.isPresent()
+                ? Collections.singletonList(opt.get())
+                : Collections.emptyList();
+    }
+
+    @PostMapping("/sendScenario/{scenarioId}")
+    public ResponseEntity<Void> sendScenario(@PathVariable("scenarioId") Long scenarioId){
+        Optional<Scenario> scenarioOptional = scenarioService.getScenarioById(scenarioId);
+        if(scenarioOptional.isPresent()){
+            Scenario scenario = scenarioOptional.get();
+            var requestIds = scenario.getRequestIds().split("/");
+            System.out.println(requestIds);
+
+            for (int i = 0; i < requestIds.length; i++) {
+                Optional<Request> requestOptional = requestService.findRequestById(Long.parseLong(requestIds[i]));
+                if(requestOptional.isPresent()){
+                    Request request = requestOptional.get();
+                    System.out.println("[REQUEST_ID]: " + request.getId());
+                    try{
+                        //Initializing request to create requests on POSTMAN_API database:
+                        URL obj = new URL(POSTMAN_API+"requests/"+request.getId());
+                        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+                        con.setRequestMethod("POST");
+                        con.setRequestProperty("Content-Type", "application/json; utf-8");
+                        con.setRequestProperty("Accept", "application/json");
+                        con.setDoOutput(true);
+
+                        //Initializing request to get responses from POSTMAN_API
+                        URL obj2 = new URL(POSTMAN_API+"requests/"+request.getId());
+                        HttpURLConnection con2 = (HttpURLConnection) obj2.openConnection();
+
+                        //Initializing body of the request to send information's about the request:
+                        JSONObject body = new JSONObject();
+
+                        //Initializing parameters parameter to add to body:
+                        Optional<Param> paramOptional = paramService.getParamsByRequestId(request.getId());
+                        List<Param> paramList = toList(paramOptional);
+//                        System.out.println("ParamList:" + paramList);
+                        JSONObject paramsJson = new JSONObject();
+                        if(!paramList.isEmpty()){
+                            for(int j =0; j < paramList.size(); j ++) {
+                                String name = paramList.get(j).getName();
+                                String value = paramList.get(j).getValue();
+                                paramsJson.put(name, value);
+                            }
+                        }
+                        //Adding parameters to body:
+                        body.put("Params",paramsJson);
+//                        System.out.println("ParamsJson: " + paramsJson);
+
+                        //Initializing header for request:
+                        Optional<Header> headerOptional = headerService.getHeadersByRequestId(request.getId());
+                        List<Header> headerList = toList(headerOptional);
+                        JSONObject headerJson = new JSONObject();
+                        if(!headerList.isEmpty()){
+                            for(int j =0;j<headerList.size();j++){
+                                String name = headerList.get(j).getName();
+                                String value = headerList.get(j).getValue();
+                                headerJson.put(name,value);
+                            }
+                        }
+                        //Adding headers to body:
+                        body.put("Headers",headerJson);
+//                        System.out.println("HeadersJson: " +headerJson);
+
+                        //Initializing body for request:
+                        Optional<Body> bodyOptional = bodyService.getBodyByRequestId(request.getId());
+                        List<Body> bodyList = toList(bodyOptional);
+                        JSONObject bodyJson = new JSONObject();
+                        if(!bodyList.isEmpty()){
+                            for (int j = 0; j < bodyList.size(); j++) {
+                                String name = bodyList.get(j).getName();
+                                String value = bodyList.get(j).getValue();
+                                bodyJson.put(name,value);
+                            }
+                        }
+                        //Adding body to body:
+                        body.put("Body",bodyJson);
+//                        System.out.println("BodyJson:" + bodyJson);
+
+
+                        //Adding method,host,url of request to body of the request:
+                        body.put("UserId", request.getUserId().toString());
+                        body.put("Method",request.getType());
+//                        System.out.println("Request TYPE:" + request.getType());
+                        body.put("Host",request.getHost());
+//                        System.out.println("Request HOST:" + request.getHost());
+                        body.put("Url",request.getUrl());
+//                        System.out.println("Request URL:" + request.getUrl());
+
+
+                        //Adding body to the request
+                        try(OutputStream os = con.getOutputStream()) {
+                            byte[] input = body.toString().getBytes("utf-8");
+                            os.write(input, 0, input.length);
+                        }
+                        System.out.println("[BODY]: " + body.toString());
+
+                        //getting the ResponseMessage && saving it on the database:
+                String responseMessage = con.getResponseMessage();
+
+
+
+                        con2.setRequestMethod("GET");
+                        con2.setRequestProperty("Accept", "application/json");
+                        con2.setDoOutput(true);
+
+                        Response databaseResponse = new Response();
+                        databaseResponse.setRequestId(request.getId());
+
+                        try(BufferedReader br = new BufferedReader(
+                                new InputStreamReader(con2.getInputStream(), "utf-8"))) {
+                            StringBuilder getResponse = new StringBuilder();
+                            String responseLine = null;
+                            while ((responseLine = br.readLine()) != null) {
+                                getResponse.append(responseLine.trim());
+                            }
+                            System.out.println("[RESPONSE]: " +getResponse.toString());
+                            databaseResponse.setResponse(getResponse.toString());
+                        }
+
+                        responseService.createResponse(databaseResponse);
+
+                    } catch(IOException e){
+                        System.out.println(e);
+                    }
+                }
+                else{
+                    return ResponseEntity.notFound().build();
+                }
+            }
+            return ResponseEntity.ok().build();
         }
         return ResponseEntity.notFound().build();
     }

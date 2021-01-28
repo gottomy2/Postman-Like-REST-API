@@ -10,9 +10,9 @@ Content-Type: application/json
 }
 
 ### Finds user with specified id:
-GET http://localhost:9090/user/getUserById/2
-
+GET http://localhost:9090/user/getUserById/1
 ### Updates User by Id
+
 PUT http://localhost:9090/user/updateUser/
 Content-Type: application/json
 
@@ -106,8 +106,8 @@ Content-Type: application/json
 
 {
   "userId": 1,
-  "requestIds": "1/2",
-  "name": "Test Scenario TEST",
+  "requestIds": "1/2/3",
+  "name": "Test Scenario",
   "description": "Tests on google service"
 }
 
@@ -116,7 +116,10 @@ GET http://localhost:9090/scenario/getScenarioById/1
 
 
 ###
-POST http://localhost:9090/request/sendRequest/3
+POST http://localhost:9090/request/sendRequest/1
+
+###
+POST http://localhost:9090/scenario/sendScenario/1
 
 ###
 POST http://localhost:3000/requests/123
