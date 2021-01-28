@@ -2,7 +2,9 @@ package edu.pjatk.postman.controller.param;
 
 import edu.pjatk.postman.controller.param.model.*;
 import edu.pjatk.postman.repository.model.Param;
+import edu.pjatk.postman.repository.model.Request;
 import edu.pjatk.postman.service.ParamService;
+import edu.pjatk.postman.service.RequestService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +21,12 @@ import java.util.Optional;
 @RequestMapping("/param")
 public class ParamController {
     private final ParamService paramService;
-//    private RequestService requestService;
+    private final RequestService requestService;
 
     @Autowired
-    public ParamController(ParamService paramService) {
+    public ParamController(ParamService paramService,RequestService requestService) {
         this.paramService = paramService;
+        this.requestService=requestService;
     }
 
     /**
@@ -65,11 +68,10 @@ public class ParamController {
      */
     @PostMapping("/createParam")
     public ResponseEntity<Void> createParam(@RequestBody PostParamRequest request){
-//        Optional<Param> check = paramService.getParamById(request.getId());
-//        Optional<Request> check2 = requestService.findRequestById(request.getRequestId());
-//        if(check.isPresent() || check2.isEmpty()){
-//            return ResponseEntity.notFound().build();
-//        }
+        Optional<Request> check = requestService.findRequestById(request.getRequestId());
+        if(check.isPresent()){
+            return ResponseEntity.notFound().build();
+        }
         Param param = new Param(request.getRequestId(),request.getName(),request.getValue());
         paramService.createParam(param);
         return ResponseEntity.created(URI.create("https://localhost:9090/param/getParamById/" + param.getId())).build();
@@ -83,8 +85,8 @@ public class ParamController {
     @PutMapping("/updateParam")
     public ResponseEntity<Void> updateParam(@RequestBody PutParamRequest request){
         Optional<Param> check = paramService.getParamById(request.getId());
-//        Optional<Request> check2 = requestService.findRequestById(request.getRequestId());
-        if(check.isEmpty() /*|| check2.isEmpty()*/){
+        Optional<Request> check2 = requestService.findRequestById(request.getRequestId());
+        if(check.isEmpty() || check2.isEmpty()){
             return ResponseEntity.notFound().build();
         }
         Param param = new Param(request.getId(),request.getRequestId(),request.getName(),request.getValue());
