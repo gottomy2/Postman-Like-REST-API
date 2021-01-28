@@ -169,7 +169,7 @@ public class RequestController {
                 body.put("Url",request.getUrl());
                 System.out.println("Request URL:" + request.getUrl());
 
-
+                System.out.println(body.toString());
                 //Adding body to the request
                 try(OutputStream os = con.getOutputStream()) {
                     byte[] input = body.toString().getBytes("utf-8");
@@ -177,7 +177,7 @@ public class RequestController {
                 }
 
                 //getting the ResponseMessage && saving it on the database:
-//                String responseMessage = con.getResponseMessage();
+                String responseMessage = con.getResponseMessage();
 
 
                 URL obj2 = new URL(POSTMAN_API+"requests/"+id);
@@ -196,7 +196,7 @@ public class RequestController {
                     while ((responseLine = br.readLine()) != null) {
                         getResponse.append(responseLine.trim());
                     }
-                    System.out.println(getResponse.toString());
+                    System.out.println("RESPONSE: " + getResponse.toString());
                     databaseResponse.setResponse(getResponse.toString());
                 }
 
