@@ -22,7 +22,6 @@ import java.util.Optional;
  * @author Igor Motowidło (gottomy2)
  * Main Controller, contains all the logics.
  * Its Task is to send all Requests with their Parameters and add Responses to the database
- * TODO: Finish the logics based on PostmanCopy URL granted by Valentyn Kuts.
  */
 @RestController
 @RequestMapping("/main")
@@ -167,7 +166,15 @@ public class MainController {
                 databaseResponse.setResponse(getResponse.toString());
             }
 
-            responseService.createResponse(databaseResponse);
+            Optional<Response> responseOptional = responseService.getResponseByRequestId(request.getId());
+            if(responseOptional.isPresent()){
+                System.out.println("[Response already exists...] - Updating existing one: " + responseOptional.get().toString());
+                databaseResponse.setId(responseOptional.get().getId());
+                responseService.updateResponse(databaseResponse);
+            }
+            else{
+                responseService.createResponse(databaseResponse);
+            }
 
             return con.getResponseCode();
         } catch(IOException e){
