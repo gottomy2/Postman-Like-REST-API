@@ -116,10 +116,10 @@ GET http://localhost:9090/scenario/getScenarioById/1
 
 
 ###
-POST http://localhost:9090/request/sendRequest/1
+POST http://localhost:9090/main/sendRequest/1
 
 ###
-POST http://localhost:9090/scenario/sendScenario/1
+POST http://localhost:9090/main/sendScenario/1
 
 ###
 POST http://localhost:3000/requests/123
@@ -139,4 +139,4 @@ POST http://localhost:3000/requests/123
 GET http://localhost:3000/user/requests/1
 
 ###
-GET http://localhost:3000/requests/3
+GET http://localhost:3000/requests/1
