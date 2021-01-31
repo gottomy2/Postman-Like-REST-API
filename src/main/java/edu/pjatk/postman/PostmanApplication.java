@@ -2,6 +2,8 @@ package edu.pjatk.postman;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @author Igor Motowidło (gottomy2)
@@ -15,4 +17,11 @@ public class PostmanApplication {
 		SpringApplication.run(PostmanApplication.class, args);
 	}
 
+	@RestController
+	class HelloController{
+		@GetMapping("/")
+		String hello(){
+			return "HELLO!";
+		}
+	}
 }
