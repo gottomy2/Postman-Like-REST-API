@@ -5,6 +5,7 @@ import edu.pjatk.postman.repository.model.Header;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,7 +21,7 @@ public class HeaderService {
         return headerRepository.findById(id);
     }
 
-    public Optional<Header> getHeadersByRequestId(Long requestId){
+    public List<Header> getHeadersByRequestId(Long requestId){
         return headerRepository.getHeadersByRequestId(requestId);
     }
 

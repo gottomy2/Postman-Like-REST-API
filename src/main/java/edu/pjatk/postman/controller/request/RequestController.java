@@ -122,8 +122,10 @@ public class RequestController {
         }
         else{
             requestService.deleteRequest(request.get());
-            Optional<Param> param = paramService.getParamsByRequestId(id);
-            param.ifPresent(paramService::deleteParam);
+            List<Param> param = paramService.getParamsByRequestId(id);
+            if(!param.isEmpty()){
+               paramService.deleteParam(param.get(0));
+            }
 
             return ResponseEntity.ok().build();
         }

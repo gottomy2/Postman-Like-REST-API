@@ -2,7 +2,8 @@ package edu.pjatk.postman.controller.param.model;
 
 import edu.pjatk.postman.repository.model.Param;
 import lombok.*;
-import java.util.Optional;
+
+import java.util.List;
 
 /**
  * @author Igor Motowidło (gottomy2)
@@ -18,5 +19,5 @@ import java.util.Optional;
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetParamsByRequestIdResponse {
-    Optional<Param> paramList;
+    List<Param> paramList;
 }

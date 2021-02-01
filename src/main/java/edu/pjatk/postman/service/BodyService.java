@@ -5,6 +5,7 @@ import edu.pjatk.postman.repository.model.Body;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -20,7 +21,7 @@ public class BodyService {
         return bodyRepository.findById(id);
     }
 
-    public Optional<Body> getBodyByRequestId(Long requestId){
+    public List<Body> getBodyByRequestId(Long requestId){
         return bodyRepository.getBodyByRequestId(requestId);
     }
 

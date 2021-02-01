@@ -1,12 +1,14 @@
 package edu.pjatk.postman.controller.main;
 
-import edu.pjatk.postman.Helper;
 import edu.pjatk.postman.repository.model.*;
 import edu.pjatk.postman.service.*;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -14,7 +16,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,32 +39,13 @@ public class MainController {
 
     @Autowired
     public MainController(ScenarioService scenarioService,RequestService requestService, ParamService paramService, HeaderService headerService, BodyService bodyService, ResponseService responseService, UserService userService) {
-        this.scenarioService=scenarioService;
+        this.scenarioService = scenarioService;
         this.requestService = requestService;
         this.paramService = paramService;
         this.headerService = headerService;
         this.bodyService = bodyService;
         this.responseService = responseService;
         this.userService = userService;
-    }
-
-    // Template: ResponseEntity<C> (Class)
-    @PostMapping("test/userId/{userId}")
-    public void getParamsByUserId(@PathVariable("userId") Long user_id){
-        Optional<Request> requestOptional = requestService.getRequestsByUserId(user_id);
-        List<Request> requestList = Helper.toList(requestOptional);
-//        Param[] paramList = paramService.getParamsByRequestId(user_id);
-
-        for(int i=0;i<requestList.size();i++){
-            Request request = requestList.get(i);
-//            Param param = paramList[i];
-        }
-    }
-
-    public static <T> List<T> toList(Optional<T> opt) {
-        return opt.isPresent()
-                ? Collections.singletonList(opt.get())
-                : Collections.emptyList();
     }
 
     public int sendRequest(Optional<Request> requestOptional){
@@ -80,8 +62,7 @@ public class MainController {
             JSONObject body = new JSONObject();
 
             //Initializing parameters parameter to add to body:
-            Optional<Param> paramOptional = paramService.getParamsByRequestId(request.getId());
-            List<Param> paramList = toList(paramOptional);
+            List<Param> paramList = paramService.getParamsByRequestId(request.getId());
             System.out.println("ParamList:" + paramList);
             JSONObject paramsJson = new JSONObject();
             if(!paramList.isEmpty()){
@@ -96,8 +77,7 @@ public class MainController {
             System.out.println("ParamsJson: " + paramsJson);
 
             //Initializing header for request:
-            Optional<Header> headerOptional = headerService.getHeadersByRequestId(request.getId());
-            List<Header> headerList = toList(headerOptional);
+            List<Header> headerList = headerService.getHeadersByRequestId(request.getId());
             JSONObject headerJson = new JSONObject();
             if(!headerList.isEmpty()){
                 for(int i =0;i<headerList.size();i++){
@@ -111,8 +91,7 @@ public class MainController {
             System.out.println("HeadersJson: " +headerJson);
 
             //Initializing body for request:
-            Optional<Body> bodyOptional = bodyService.getBodyByRequestId(request.getId());
-            List<Body> bodyList = toList(bodyOptional);
+            List<Body> bodyList = bodyService.getBodyByRequestId(request.getId());
             JSONObject bodyJson = new JSONObject();
             if(!bodyList.isEmpty()){
                 for (int i = 0; i < bodyList.size(); i++) {
