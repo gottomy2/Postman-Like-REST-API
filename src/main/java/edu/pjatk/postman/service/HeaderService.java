@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Service
 public class HeaderService {
-    private HeaderRepository headerRepository;
+    private final HeaderRepository headerRepository;
 
     @Autowired
     public HeaderService(HeaderRepository headerRepository) {

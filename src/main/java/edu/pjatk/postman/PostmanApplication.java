@@ -18,7 +18,7 @@ public class PostmanApplication {
 	}
 
 	@RestController
-	class HelloController{
+	static class HelloController{
 		@GetMapping("/")
 		String hello(){
 			return "HELLO!";

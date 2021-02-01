@@ -1,22 +1,16 @@
 package edu.pjatk.postman.controller.scenario;
 
 import edu.pjatk.postman.controller.scenario.model.*;
-import edu.pjatk.postman.repository.model.*;
+import edu.pjatk.postman.repository.model.Request;
+import edu.pjatk.postman.repository.model.Scenario;
+import edu.pjatk.postman.repository.model.User;
 import edu.pjatk.postman.service.*;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
 import java.net.URI;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,22 +24,13 @@ import java.util.Optional;
 public class ScenarioController {
     private final ScenarioService scenarioService;
     private final RequestService requestService;
-    private final ParamService paramService;
-    private final HeaderService headerService;
-    private final BodyService bodyService;
-    private final ResponseService responseService;
     private final UserService userService;
 
-     String POSTMAN_API="http://localhost:3000/";
 
     @Autowired
-    public ScenarioController(ScenarioService scenarioService, RequestService requestService, ParamService paramService, HeaderService headerService, BodyService bodyService, ResponseService responseService, UserService userService) {
+    public ScenarioController(ScenarioService scenarioService, RequestService requestService, UserService userService) {
         this.scenarioService = scenarioService;
         this.requestService = requestService;
-        this.paramService = paramService;
-        this.headerService = headerService;
-        this.bodyService = bodyService;
-        this.responseService = responseService;
         this.userService = userService;
     }
 

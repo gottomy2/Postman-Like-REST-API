@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Service
 public class BodyService {
-    private BodyRepository bodyRepository;
+    private final BodyRepository bodyRepository;
 
     @Autowired
     public BodyService(BodyRepository bodyRepository) {
