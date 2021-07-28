@@ -75,7 +75,7 @@ can be found in apitest.http file located [here](https://github.com/gottomy2/Pos
 
 -------------  
 ### JavaDocs Documentation
-Here is full [Documentation](https://gottomy2.github.io/postmanCopyDoc/) of this github project generated thorugh usage of javadocs.
+Here is full [Documentation](https://gottomy2.github.io/postmanCopyDoc/) of this github project generated through usage of javadocs.
 
 
 
